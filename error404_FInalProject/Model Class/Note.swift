@@ -12,12 +12,13 @@ class Note
 {
     var title : String;
     var desc : String;
-    var createdAt : Int64;
+    var createdAt : Date = Date()
     var lat : Double;
     var long : Double;
     var category : String;
     var imageData: Data;
     var audiopath : String;
+    var dateString : String
     
     init() {
       
@@ -27,7 +28,25 @@ class Note
         self.audiopath = String()
         self.lat = Double();
         self.long = Double();
-        self.createdAt = Int64();
+        self.createdAt = Date();
         self.imageData = Data();
+        let formatter = DateFormatter()
+               formatter.dateFormat = "dd/MM/yyyy hh:mm a"
+               self.dateString = formatter.string(from: createdAt)
+               
+    }
+    
+    
+}
+
+extension Date
+{
+    
+    func dateformatter() -> String {
+        let dateFormatterPrint=DateFormatter()
+        dateFormatterPrint.dateFormat="dd/MM/yyyy"
+        let formattedDate = dateFormatterPrint.string(from: self)
+        return formattedDate
+        
     }
 }

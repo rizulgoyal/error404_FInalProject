@@ -8,14 +8,23 @@
 
 import UIKit
 import CoreData
-class NotesTableViewController: UITableViewController {
+import MapKit
+import CoreLocation
+
+class NotesTableViewController: UITableViewController,  CLLocationManagerDelegate{
 
     var category = ""
     var notesArray = [Note]()
+    var addressm = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        clearCoreData()
+//        notesArray.removeAll()
         loadFromCoreData()
+    
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -24,6 +33,7 @@ class NotesTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        notesArray.removeAll()
         loadFromCoreData()
         print(notesArray.count)
     }
@@ -43,14 +53,78 @@ class NotesTableViewController: UITableViewController {
    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "notesCell", for: indexPath) as! NotesTableViewCell
-        cell.titleLabel.text = notesArray[indexPath.row].title
+       let currnote =  notesArray[indexPath.row]
+        cell.titleLabel.text = currnote.title
+        
+        
+        // new code
+        let location = CLLocation(latitude: currnote.lat, longitude: currnote.long)
+        var address = ""
+
+         CLGeocoder().reverseGeocodeLocation(location){(placemarks, error) in
+                    if let error = error
+                    {
+                        print(error)
+                    }
+                    else
+                    {
+                        if let placemark = placemarks?[0]{
+        //                    if placemark.subThoroughfare != nil{
+        //                        address = address + placemark.subThoroughfare! + " "
+        //                    }
+        //
+        //                    if placemark.thoroughfare != nil{
+        //                        address = address + placemark.thoroughfare! + " "
+        //                    }
+        //
+        //                    if placemark.subLocality != nil{
+        //                        address = address + placemark.subLocality!  + " "
+        //                    }
+        //
+                            if placemark.subAdministrativeArea != nil{
+                             //   annotation.title = placemark.subAdministrativeArea
+
+                                address = address + placemark.subAdministrativeArea! + " "
+                            }
+                            
+        //                    if placemark.postalCode != nil{
+        //                        address = address + placemark.postalCode! + " "
+        //                    }
+                            
+                            if placemark.country != nil{
+                                address = address + placemark.country! + " "
+                            }
+                          
+                            self.addressm = address
+                            cell.addressLabel.text = address
+                            
+                            
+                            
+                            
+                      }
+                        
+                    }
+                        
+                    }
+      //  let address : String = String(self.getaddress(lat: currnote.lat, long: currnote.long))
+        
+        cell.addressLabel.text = addressm
+        
+        cell.dateLabel.text = currnote.dateString
+        
         // Configure the cell...
 
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
     func loadFromCoreData()
       {
+        
+       // self.clearCoreData()
         
 
           let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -65,12 +139,18 @@ class NotesTableViewController: UITableViewController {
            if let result = try? context.fetch(fetchRequest) {
             for object in result as! [NSManagedObject] {
                 
-                var title = object.value(forKey: "title")
-                var desc = object.value(forKey: "desc")
+                let title = object.value(forKey: "title")
+                let desc = object.value(forKey: "desc")
+                let lat = object.value(forKey: "latitude")
+                let long = object.value(forKey: "longitude")
+
                 
-                var note = Note()
+                let note = Note()
                 note.title = title as! String
                 note.desc = desc as! String
+                note.lat = lat as! Double
+                note.long = long as! Double
+                
                 
                 notesArray.append(note)
                }
@@ -84,6 +164,85 @@ class NotesTableViewController: UITableViewController {
         newVC.category = self.category
         }
     }
+    
+  
+    func clearCoreData ()
+    {
+
+               let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                     
+                      let context = appDelegate.persistentContainer.viewContext
+               let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Notes")
+        fetchRequest.returnsObjectsAsFaults = false
+        do{
+            let results = try context.fetch(fetchRequest)
+            
+            for managedObjects in results{
+                if let managedObjectsData = managedObjects as? NSManagedObject
+                {
+                    context.delete(managedObjectsData)
+                }
+            
+            }
+        }catch{
+            print(error)
+        }
+    
+    }
+    
+    func getaddress(lat : Double, long: Double) -> String {
+        let location = CLLocation(latitude: lat, longitude: long)
+        
+        var address = ""
+        
+            CLGeocoder().reverseGeocodeLocation(location){(placemarks, error) in
+            if let error = error
+            {
+                print(error)
+            }
+            else
+            {
+                if let placemark = placemarks?[0]{
+//                    if placemark.subThoroughfare != nil{
+//                        address = address + placemark.subThoroughfare! + " "
+//                    }
+//
+//                    if placemark.thoroughfare != nil{
+//                        address = address + placemark.thoroughfare! + " "
+//                    }
+//
+//                    if placemark.subLocality != nil{
+//                        address = address + placemark.subLocality!  + " "
+//                    }
+//
+                    if placemark.subAdministrativeArea != nil{
+                     //   annotation.title = placemark.subAdministrativeArea
+
+                        address = address + placemark.subAdministrativeArea! + " "
+                    }
+                    
+//                    if placemark.postalCode != nil{
+//                        address = address + placemark.postalCode! + " "
+//                    }
+                    
+                    if placemark.country != nil{
+                        address = address + placemark.country! + " "
+                    }
+                  
+                    self.addressm = address
+                    
+                    
+                    
+                    
+              }
+                
+            }
+                
+            }
+        return address
+
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.

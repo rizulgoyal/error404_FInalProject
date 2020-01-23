@@ -8,31 +8,76 @@
 
 import UIKit
 import CoreData
+import MapKit
+import CoreLocation
 
-class AddNewNoteViewController: UIViewController {
+class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet var titleText: UITextField!
     
     @IBOutlet var descText: UITextField!
+    
+    
+    
+    var locationManager = CLLocationManager()
+    
+    var destination2d = CLLocationCoordinate2D()
     
     var category = ""
     var noteArray = [Note]()
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        locationManager.delegate = self
+         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+         
+        locationManager.startUpdatingLocation()
+        
         // Do any additional setup after loading the view.
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+              //grab user location
+             
+              
+              let userLocation : CLLocation = locations[0]
+              let lat = userLocation.coordinate.latitude
+             let long = userLocation.coordinate.longitude
+              //define delta (difference) of lat and long
+          //    let latDelta : CLLocationDegrees = 0.09
+       //      let longDelta : CLLocationDegrees = 0.09
+
+      //        //define span
+           //   let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta)
+      //
+      //
+      //        //define location
+              let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
+      //
+      //        //define region
+             // let region = MKCoordinateRegion(center: location, span: span)
+      //
+      //        // set the region on the map
+           destination2d = location
+              
+
+          }
+      
     
     
     
     @IBAction func saveBtn(_ sender: Any)
     {
-        var title = titleText.text
-        var desc = descText.text
-        
-        var note = Note()
+        let title = titleText.text
+        let desc = descText.text
+        let date = Date()
+        let note = Note()
+        note.lat = destination2d.latitude
+        note.long = destination2d.longitude
         note.title = title!
         note.desc = desc!
+        note.createdAt = date
         note.category = self.category
         noteArray.append(note)
         print(self.category)
@@ -52,7 +97,10 @@ class AddNewNoteViewController: UIViewController {
             //newTask.setValue(Int16(i.noOfDays), forKey: "noOfDays")
             newTask.setValue(i.desc, forKey: "desc")
             newTask.setValue(i.category, forKey: "category")
-            //newTask.setValue(i.dateString, forKey: "date")
+            newTask.setValue(i.createdAt, forKey: "date")
+            newTask.setValue(i.lat, forKey: "latitude")
+            newTask.setValue(i.long, forKey: "longitude")
+
         
         
         do
