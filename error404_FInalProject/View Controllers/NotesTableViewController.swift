@@ -15,12 +15,17 @@ class NotesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //loadFromCoreData()
+        loadFromCoreData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadFromCoreData()
+        print(notesArray.count)
     }
 
     // MARK: - Table view data source
@@ -37,8 +42,8 @@ class NotesTableViewController: UITableViewController {
 
    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-        cell.textLabel?.text = category
+        let cell = tableView.dequeueReusableCell(withIdentifier: "notesCell", for: indexPath) as! NotesTableViewCell
+        cell.titleLabel.text = notesArray[indexPath.row].title
         // Configure the cell...
 
         return cell
@@ -58,8 +63,16 @@ class NotesTableViewController: UITableViewController {
            let predicate = NSPredicate(format: "category=%@", "\(category)")
            fetchRequest.predicate = predicate
            if let result = try? context.fetch(fetchRequest) {
-               for object in result {
-                notesArray.append(object as! Note)
+            for object in result as! [NSManagedObject] {
+                
+                var title = object.value(forKey: "title")
+                var desc = object.value(forKey: "desc")
+                
+                var note = Note()
+                note.title = title as! String
+                note.desc = desc as! String
+                
+                notesArray.append(note)
                }
            }
         

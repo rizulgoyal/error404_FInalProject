@@ -10,6 +10,7 @@
 		E08F3C5E23D9411C00069ED2 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C5D23D9411C00069ED2 /* CategoryTableViewCell.swift */; };
 		E08F3C6023D9486900069ED2 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C5F23D9486900069ED2 /* NotesTableViewController.swift */; };
 		E08F3C6223D94E5800069ED2 /* AddNewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C6123D94E5800069ED2 /* AddNewNoteViewController.swift */; };
+		E08F3C6423D9592700069ED2 /* NotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C6323D9592700069ED2 /* NotesTableViewCell.swift */; };
 		E0F21CBC23D9314900489FC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F21CBB23D9314900489FC2 /* AppDelegate.swift */; };
 		E0F21CBE23D9314900489FC2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F21CBD23D9314900489FC2 /* SceneDelegate.swift */; };
 		E0F21CC023D9314900489FC2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F21CBF23D9314900489FC2 /* ViewController.swift */; };
@@ -25,6 +26,7 @@
 		E08F3C5D23D9411C00069ED2 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		E08F3C5F23D9486900069ED2 /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
 		E08F3C6123D94E5800069ED2 /* AddNewNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewNoteViewController.swift; sourceTree = "<group>"; };
+		E08F3C6323D9592700069ED2 /* NotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewCell.swift; sourceTree = "<group>"; };
 		E0F21CB823D9314900489FC2 /* error404_FInalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = error404_FInalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0F21CBB23D9314900489FC2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0F21CBD23D9314900489FC2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				E08F3C5D23D9411C00069ED2 /* CategoryTableViewCell.swift */,
+				E08F3C6323D9592700069ED2 /* NotesTableViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				E0F21CBC23D9314900489FC2 /* AppDelegate.swift in Sources */,
 				E08F3C5E23D9411C00069ED2 /* CategoryTableViewCell.swift in Sources */,
 				E08F3C6223D94E5800069ED2 /* AddNewNoteViewController.swift in Sources */,
+				E08F3C6423D9592700069ED2 /* NotesTableViewCell.swift in Sources */,
 				E0F21CBE23D9314900489FC2 /* SceneDelegate.swift in Sources */,
 				E0F21CD823D93A0400489FC2 /* Note.swift in Sources */,
 			);
