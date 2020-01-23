@@ -33,9 +33,11 @@ class NotesTableViewController: UITableViewController,  CLLocationManagerDelegat
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         notesArray.removeAll()
         loadFromCoreData()
         print(notesArray.count)
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source

@@ -12,7 +12,7 @@ import MapKit
 import CoreLocation
 
 
-class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate {
+class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UITextViewDelegate {
 
 
     @IBOutlet var titleText: UITextField!
