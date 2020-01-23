@@ -57,7 +57,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Notes" id="eWO-i7-niS">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="osm-9X-ErF"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="osm-9X-ErF">
+                            <connections>
+                                <segue destination="VGB-hi-4qL" kind="show" id="xtc-cZ-yla"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oh1-Yg-YED" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -267,11 +271,15 @@
                                 <state key="normal" title="Add">
                                     <color key="titleColor" red="0.97904421990000001" green="1" blue="0.96875051629999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
+                                <connections>
+                                    <action selector="buttonCategory:" destination="VGB-hi-4qL" eventType="touchUpInside" id="0Kw-Q0-qxi"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.99894374610000003" green="0.97095149759999999" blue="0.81566327810000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="VM4-pb-IcC"/>
                     </view>
+                    <navigationItem key="navigationItem" id="RjD-NZ-zg8"/>
                     <connections>
                         <outlet property="labelCategory" destination="Y3f-Dy-ewq" id="kRP-7T-mh8"/>
                     </connections>
