@@ -229,9 +229,14 @@
                         <viewLayoutGuide key="safeArea" id="lbl-Z2-UFC"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add New Note" id="CxG-iG-vqn">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="12t-Cj-Tko"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="12t-Cj-Tko">
+                            <connections>
+                                <action selector="saveBtn:" destination="uWa-zx-a0e" id="LFe-tE-Wn6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="descText" destination="z85-oa-LFE" id="Oix-N9-AxN"/>
                         <outlet property="titleText" destination="Dil-rw-vUb" id="jTt-ZP-CrC"/>
                     </connections>
                 </viewController>

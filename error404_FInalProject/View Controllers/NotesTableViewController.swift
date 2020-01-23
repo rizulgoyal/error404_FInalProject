@@ -24,6 +24,7 @@ class NotesTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        notesArray.removeAll()
         loadFromCoreData()
         print(notesArray.count)
     }

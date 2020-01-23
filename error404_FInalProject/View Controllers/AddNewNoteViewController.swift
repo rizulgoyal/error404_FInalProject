@@ -9,16 +9,20 @@
 import UIKit
 import CoreData
 
-class AddNewNoteViewController: UIViewController {
+class AddNewNoteViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet var titleText: UITextField!
     
-    @IBOutlet var descText: UITextField!
+    @IBOutlet weak var descText: UITextView!
+    
     
     var category = ""
     var noteArray = [Note]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        descText.delegate = self
+        descText.text = "Enter Description"
+        descText.textColor = UIColor.lightGray
         
         // Do any additional setup after loading the view.
     }
@@ -64,6 +68,14 @@ class AddNewNoteViewController: UIViewController {
                    }
         }
         
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+
+        if descText.textColor == UIColor.lightGray {
+            descText.text = ""
+            descText.textColor = UIColor.black
+        }
     }
 
     /*
