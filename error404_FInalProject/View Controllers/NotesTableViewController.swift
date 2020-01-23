@@ -77,6 +77,13 @@ class NotesTableViewController: UITableViewController {
            }
         
         }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let newVC = segue.destination as? AddNewNoteViewController
+        {
+        newVC.category = self.category
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.

@@ -33,8 +33,9 @@ class AddNewNoteViewController: UIViewController {
         var note = Note()
         note.title = title!
         note.desc = desc!
-        note.category = "Home"
+        note.category = self.category
         noteArray.append(note)
+        print(self.category)
         saveToCoreData()
     }
     
@@ -65,6 +66,7 @@ class AddNewNoteViewController: UIViewController {
         }
         
     }
+
 
     /*
     // MARK: - Navigation

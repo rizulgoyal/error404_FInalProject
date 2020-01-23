@@ -153,7 +153,7 @@
                     <navigationItem key="navigationItem" id="NgD-kj-sj0">
                         <barButtonItem key="rightBarButtonItem" title="Add" id="0Uj-po-5eW">
                             <connections>
-                                <segue destination="uWa-zx-a0e" kind="show" id="J0d-JF-IPJ"/>
+                                <segue destination="uWa-zx-a0e" kind="show" identifier="addNotes" id="J0d-JF-IPJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -165,7 +165,7 @@
         <!--Add New Note-->
         <scene sceneID="3IH-GF-h8w">
             <objects>
-                <viewController id="uWa-zx-a0e" customClass="AddNewNoteViewController" customModule="error404_FInalProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addNotes" id="uWa-zx-a0e" customClass="AddNewNoteViewController" customModule="error404_FInalProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="p19-pH-knd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
