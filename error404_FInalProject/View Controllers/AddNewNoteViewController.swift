@@ -11,11 +11,14 @@ import CoreData
 import MapKit
 import CoreLocation
 
+
 class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate {
+
 
     @IBOutlet var titleText: UITextField!
     
-    @IBOutlet var descText: UITextField!
+    @IBOutlet weak var descText: UITextView!
+    
     
     
     
@@ -27,6 +30,9 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate {
     var noteArray = [Note]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        descText.delegate = self
+        descText.text = "Enter Description"
+        descText.textColor = UIColor.lightGray
         
         locationManager.delegate = self
          locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -113,6 +119,14 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate {
                    }
         }
         
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+
+        if descText.textColor == UIColor.lightGray {
+            descText.text = ""
+            descText.textColor = UIColor.black
+        }
     }
 
 

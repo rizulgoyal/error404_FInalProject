@@ -72,7 +72,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Notes" id="eWO-i7-niS">
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="osm-9X-ErF"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="osm-9X-ErF"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oh1-Yg-YED" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -153,7 +153,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="NgD-kj-sj0">
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="0Uj-po-5eW">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="0Uj-po-5eW">
                             <connections>
                                 <segue destination="uWa-zx-a0e" kind="show" identifier="addNotes" id="J0d-JF-IPJ"/>
                             </connections>
@@ -172,47 +172,73 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YR3-4C-N6r">
-                                <rect key="frame" x="20" y="161" width="29" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YR3-4C-N6r">
+                                <rect key="frame" x="20" y="154" width="86" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="erb-A3-X5s">
-                                <rect key="frame" x="20" y="216" width="86" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="erb-A3-X5s">
+                                <rect key="frame" x="20" y="196" width="88" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dil-rw-vUb">
-                                <rect key="frame" x="207" y="154" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dil-rw-vUb">
+                                <rect key="frame" x="158" y="154" width="236" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RPz-dm-han">
-                                <rect key="frame" x="215" y="216" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="z85-oa-LFE">
+                                <rect key="frame" x="20" y="244" width="374" height="187"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkV-SZ-eY4">
-                                <rect key="frame" x="148" y="300" width="32" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="save"/>
-                                <connections>
-                                    <action selector="saveBtn:" destination="uWa-zx-a0e" eventType="touchUpInside" id="yVb-TM-NaB"/>
-                                </connections>
-                            </button>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvw-nV-ItF">
+                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem image="camera" catalog="system" width="219.5" id="Aik-Ml-qsQ"/>
+                                    <barButtonItem image="recordingtape" catalog="system" width="430.5" springLoaded="YES" id="00q-ja-2fq"/>
+                                </items>
+                                <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="z85-oa-LFE" firstAttribute="top" secondItem="Dil-rw-vUb" secondAttribute="bottom" constant="56" id="1fO-1s-ARY"/>
+                            <constraint firstItem="erb-A3-X5s" firstAttribute="leading" secondItem="lbl-Z2-UFC" secondAttribute="leading" constant="20" id="680-2Q-r70"/>
+                            <constraint firstItem="lbl-Z2-UFC" firstAttribute="trailing" secondItem="erb-A3-X5s" secondAttribute="trailing" constant="306" id="9FA-v7-e47"/>
+                            <constraint firstItem="lbl-Z2-UFC" firstAttribute="bottom" secondItem="erb-A3-X5s" secondAttribute="bottom" constant="632" id="Jc1-0W-vf2"/>
+                            <constraint firstItem="Dil-rw-vUb" firstAttribute="top" secondItem="lbl-Z2-UFC" secondAttribute="top" constant="66" id="L0t-Cy-zfD"/>
+                            <constraint firstItem="erb-A3-X5s" firstAttribute="top" secondItem="YR3-4C-N6r" secondAttribute="bottom" constant="8" id="LE6-ch-xRK"/>
+                            <constraint firstItem="z85-oa-LFE" firstAttribute="top" secondItem="erb-A3-X5s" secondAttribute="bottom" constant="14" id="M96-u4-v73"/>
+                            <constraint firstItem="lbl-Z2-UFC" firstAttribute="trailing" secondItem="Dil-rw-vUb" secondAttribute="trailing" constant="20" id="Mi7-fm-rfN"/>
+                            <constraint firstItem="lbl-Z2-UFC" firstAttribute="bottom" secondItem="YR3-4C-N6r" secondAttribute="bottom" constant="674" id="NHd-5S-Axo"/>
+                            <constraint firstItem="z85-oa-LFE" firstAttribute="top" secondItem="erb-A3-X5s" secondAttribute="bottom" constant="14" id="NcH-uh-zRS"/>
+                            <constraint firstItem="YR3-4C-N6r" firstAttribute="leading" secondItem="lbl-Z2-UFC" secondAttribute="leading" constant="20" id="Tlz-Od-uxd"/>
+                            <constraint firstItem="YR3-4C-N6r" firstAttribute="top" secondItem="lbl-Z2-UFC" secondAttribute="top" constant="66" id="UNy-D6-tih"/>
+                            <constraint firstItem="lbl-Z2-UFC" firstAttribute="trailing" secondItem="z85-oa-LFE" secondAttribute="trailing" constant="20" id="aQt-gN-GvS"/>
+                            <constraint firstItem="z85-oa-LFE" firstAttribute="leading" secondItem="lbl-Z2-UFC" secondAttribute="leading" constant="20" id="gNo-j5-JyL"/>
+                            <constraint firstItem="erb-A3-X5s" firstAttribute="leading" secondItem="YR3-4C-N6r" secondAttribute="leading" id="gpx-zT-mL8"/>
+                            <constraint firstItem="Dil-rw-vUb" firstAttribute="leading" secondItem="YR3-4C-N6r" secondAttribute="trailing" constant="52" id="mN3-uM-pYG"/>
+                            <constraint firstItem="lbl-Z2-UFC" firstAttribute="bottom" secondItem="z85-oa-LFE" secondAttribute="bottom" constant="431" id="vkv-7q-31G"/>
+                            <constraint firstItem="lbl-Z2-UFC" firstAttribute="trailing" secondItem="YR3-4C-N6r" secondAttribute="trailing" constant="308" id="wNR-oM-MYd"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="lbl-Z2-UFC"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Add New Note" id="CxG-iG-vqn"/>
+                    <navigationItem key="navigationItem" title="Add New Note" id="CxG-iG-vqn">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="12t-Cj-Tko">
+                            <connections>
+                                <action selector="saveBtn:" destination="uWa-zx-a0e" id="LFe-tE-Wn6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="descText" destination="RPz-dm-han" id="K9Q-DE-QYN"/>
+                        <outlet property="descText" destination="z85-oa-LFE" id="Oix-N9-AxN"/>
                         <outlet property="titleText" destination="Dil-rw-vUb" id="jTt-ZP-CrC"/>
                     </connections>
                 </viewController>
@@ -257,4 +283,8 @@
             <point key="canvasLocation" x="2602.898550724638" y="115.84821428571428"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="camera" catalog="system" width="64" height="48"/>
+        <image name="recordingtape" catalog="system" width="64" height="30"/>
+    </resources>
 </document>
