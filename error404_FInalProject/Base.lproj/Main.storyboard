@@ -141,6 +141,8 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="1" green="0.96788417429999996" blue="0.81739391549999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
+                                    <outlet property="addressLabel" destination="vfI-jR-QkO" id="2Lw-cG-otb"/>
+                                    <outlet property="dateLabel" destination="9G7-AP-L12" id="z5x-Q6-Sti"/>
                                     <outlet property="titleLabel" destination="iv9-qH-Yo9" id="pZP-hv-9wm"/>
                                 </connections>
                             </tableViewCell>
@@ -153,7 +155,7 @@
                     <navigationItem key="navigationItem" id="NgD-kj-sj0">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="0Uj-po-5eW">
                             <connections>
-                                <segue destination="uWa-zx-a0e" kind="show" id="J0d-JF-IPJ"/>
+                                <segue destination="uWa-zx-a0e" kind="show" identifier="addNotes" id="J0d-JF-IPJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -165,7 +167,7 @@
         <!--Add New Note-->
         <scene sceneID="3IH-GF-h8w">
             <objects>
-                <viewController id="uWa-zx-a0e" customClass="AddNewNoteViewController" customModule="error404_FInalProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addNotes" id="uWa-zx-a0e" customClass="AddNewNoteViewController" customModule="error404_FInalProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="p19-pH-knd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
