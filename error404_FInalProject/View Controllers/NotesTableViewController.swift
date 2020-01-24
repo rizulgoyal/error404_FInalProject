@@ -11,15 +11,20 @@ import CoreData
 import MapKit
 import CoreLocation
 
-class NotesTableViewController: UITableViewController,  CLLocationManagerDelegate{
+class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLocationManagerDelegate{
 
+    @IBOutlet var searchNote: UISearchBar!
     var category = ""
     var notesArray = [Note]()
+    var searchArray = [Note]()
+    var isSearch = false
+
     var addressm = ""
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchNote.delegate = self
 //        clearCoreData()
 //        notesArray.removeAll()
         loadFromCoreData()
@@ -49,13 +54,23 @@ class NotesTableViewController: UITableViewController,  CLLocationManagerDelegat
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        if isSearch
+        {
+            return searchArray.count
+        }
+        else
+        {
         return notesArray.count
+    }
     }
 
    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "notesCell", for: indexPath) as! NotesTableViewCell
-       let currnote =  notesArray[indexPath.row]
+        
+        if isSearch
+        {
+            let currnote =  searchArray[indexPath.row]
         cell.titleLabel.text = currnote.title
         
         
@@ -71,27 +86,11 @@ class NotesTableViewController: UITableViewController,  CLLocationManagerDelegat
                     else
                     {
                         if let placemark = placemarks?[0]{
-        //                    if placemark.subThoroughfare != nil{
-        //                        address = address + placemark.subThoroughfare! + " "
-        //                    }
-        //
-        //                    if placemark.thoroughfare != nil{
-        //                        address = address + placemark.thoroughfare! + " "
-        //                    }
-        //
-        //                    if placemark.subLocality != nil{
-        //                        address = address + placemark.subLocality!  + " "
-        //                    }
-        //
+        
                             if placemark.subAdministrativeArea != nil{
-                             //   annotation.title = placemark.subAdministrativeArea
 
                                 address = address + placemark.subAdministrativeArea! + " "
                             }
-                            
-        //                    if placemark.postalCode != nil{
-        //                        address = address + placemark.postalCode! + " "
-        //                    }
                             
                             if placemark.country != nil{
                                 address = address + placemark.country! + " "
@@ -110,8 +109,51 @@ class NotesTableViewController: UITableViewController,  CLLocationManagerDelegat
         
         cell.dateLabel.text = currnote.dateString
         
-        // Configure the cell...
+        }
+        else
+        {
+            
+               let currnote =  notesArray[indexPath.row]
+                cell.titleLabel.text = currnote.title
+                
+                
+                // new code
+                let location = CLLocation(latitude: currnote.lat, longitude: currnote.long)
+                var address = ""
 
+                 CLGeocoder().reverseGeocodeLocation(location){(placemarks, error) in
+                            if let error = error
+                            {
+                                print(error)
+                            }
+                            else
+                            {
+                                if let placemark = placemarks?[0]{
+                
+                                    if placemark.subAdministrativeArea != nil{
+
+                                        address = address + placemark.subAdministrativeArea! + " "
+                                    }
+                                    
+                                    if placemark.country != nil{
+                                        address = address + placemark.country! + " "
+                                    }
+                                  
+                                    self.addressm = address
+                                    cell.addressLabel.text = address
+               
+                              }
+                                
+                            }
+                                
+                            }
+            
+                cell.addressLabel.text = addressm
+                
+                cell.dateLabel.text = currnote.dateString
+                
+                
+        }
         return cell
     }
     
@@ -170,6 +212,104 @@ class NotesTableViewController: UITableViewController,  CLLocationManagerDelegat
            }
         
         }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+          
+          // first action for adding day
+           let action = UIContextualAction(
+                 style: .normal,
+                 title: "Edit Note",
+                 handler: { (action, view, completion) in
+                  
+               
+                              
+//
+//                                  completion(true)
+             })
+
+          
+             action.backgroundColor = .blue
+          
+          
+          
+          // second action for delete
+          
+          let action1 = UIContextualAction(
+                 style: .normal,
+                 title: "Delete Note",
+                 handler: { (action, view, completion) in
+
+                  let   appdelegate = UIApplication.shared.delegate as! AppDelegate;
+                                         
+                               let context = appdelegate.persistentContainer.viewContext
+                               let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Notes")
+                  
+                   
+                   do
+                   {
+                       let x = try context.fetch(fetchRequest)
+                       let result = x as! [Notes]
+                      print(result.count)
+                       
+                       print("deleting \(result[indexPath.row])")
+                       context.delete(result[indexPath.row])
+                       //print(zotes)
+                       print(indexPath.row )
+                       do
+                       {
+                          try context.save()
+                       }
+                       catch{
+                           
+                           print("error")
+                       }
+                    self.notesArray.remove(at: indexPath.row)
+                       tableView.deleteRows(at: [indexPath], with: .fade)
+                       tableView.reloadData()
+                       
+                   }
+                   catch
+                   {
+                       
+                   }
+                  
+                  completion(true)
+             })
+
+          
+             action1.backgroundColor = .red
+          
+          
+             let configuration = UISwipeActionsConfiguration(actions: [action1, action])
+             configuration.performsFirstActionWithFullSwipe = false
+             return configuration
+      }
+      
+     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+         {
+            let filtered = notesArray.filter { $0.title.lowercased().contains(searchText.lowercased()) || $0.desc.lowercased().contains(searchText.lowercased())}
+                     
+             if filtered.count>0
+             {
+              //tasks = []
+                 searchArray = filtered;
+                 isSearch = true;
+             }
+             else
+             {
+              searchArray = self.notesArray
+                 isSearch = false;
+             }
+             self.tableView.reloadData();
+         }
+         
+         func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool
+         {
+             return true;
+         }
+      
+      
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let newVC = segue.destination as? AddNewNoteViewController
