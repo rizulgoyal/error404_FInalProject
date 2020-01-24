@@ -10,17 +10,23 @@ import UIKit
 import CoreData
 import MapKit
 import CoreLocation
+import Photos
 
 
-class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UITextViewDelegate {
+class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UNUserNotificationCenterDelegate  {
 
 
     @IBOutlet var titleText: UITextField!
     
     @IBOutlet weak var descText: UITextView!
     
+    @IBOutlet weak var selectedImage: UIImageView!
     
+    @IBOutlet weak var cameraBtn: UIBarButtonItem!
     
+    @IBOutlet weak var removeImageBtn: UIButton!
+    
+    var imageData = Data()
     
     var locationManager = CLLocationManager()
     
@@ -30,6 +36,8 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
     var noteArray = [Note]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        removeImageBtn.isHidden = true
+        selectedImage.isHidden = true
         descText.delegate = self
         descText.text = "Enter Description"
         descText.textColor = UIColor.lightGray
@@ -50,21 +58,9 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
               let userLocation : CLLocation = locations[0]
               let lat = userLocation.coordinate.latitude
              let long = userLocation.coordinate.longitude
-              //define delta (difference) of lat and long
-          //    let latDelta : CLLocationDegrees = 0.09
-       //      let longDelta : CLLocationDegrees = 0.09
-
-      //        //define span
-           //   let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta)
-      //
-      //
-      //        //define location
+             
               let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
-      //
-      //        //define region
-             // let region = MKCoordinateRegion(center: location, span: span)
-      //
-      //        // set the region on the map
+     
            destination2d = location
               
 
@@ -85,9 +81,14 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         note.desc = desc!
         note.createdAt = date
         note.category = self.category
+        if !(imageData.isEmpty)
+        {
+        note.imageData = self.imageData
+        }
         noteArray.append(note)
         print(self.category)
         saveToCoreData()
+        self.navigationController?.popViewController(animated: true)
     }
     
     func saveToCoreData()
@@ -106,6 +107,7 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
             newTask.setValue(i.createdAt, forKey: "date")
             newTask.setValue(i.lat, forKey: "latitude")
             newTask.setValue(i.long, forKey: "longitude")
+            newTask.setValue(i.imageData, forKey: "image")
 
         
         
@@ -128,8 +130,45 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
             descText.textColor = UIColor.black
         }
     }
+    
+   
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.selectedImage.isHidden =  false
+            self.selectedImage.image = image
+            self.removeImageBtn.isHidden =  false
+            //self.AddPhotoBTN.isHidden =  true
+            //imageData = image.pngData()!
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
 
+   
 
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+
+    @IBAction func removeImageBtn(_ sender: Any)
+    {
+        self.selectedImage.isHidden = true
+        self.removeImageBtn.isHidden = true
+        imageData = Data()
+    }
+    
+
+    @IBAction func cameraBtn(_ sender: Any)
+    {
+
+        openDialog()
+    }
+    
+    @IBAction func recordBtn(_ sender: Any)
+    {
+    }
+    
+    
+    
     /*
     // MARK: - Navigation
 
@@ -139,5 +178,38 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func openDialog(){
+               let alert = UIAlertController(title: "NoteIt!", message: "Pick image from", preferredStyle: .alert)
+
+               
+
+               alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { action in
+
+                     if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                               var imagePicker = UIImagePickerController()
+                               imagePicker.delegate = self
+                               imagePicker.sourceType = .camera;
+                               imagePicker.allowsEditing = false
+                            self.present(imagePicker, animated: true, completion: nil)
+                           }
+               }))
+               alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { action in
+                
+                  
+                         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                             var imagePicker = UIImagePickerController()
+                             imagePicker.delegate = self
+                             imagePicker.sourceType = .photoLibrary;
+                             imagePicker.allowsEditing = true
+                             self.present(imagePicker, animated: true, completion: nil)
+                         }
+                     
+               }))
+               alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+               self.present(alert, animated: true)
+           }
+        
+    
 
 }
