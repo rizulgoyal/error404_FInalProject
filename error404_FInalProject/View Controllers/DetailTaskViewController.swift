@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 class DetailTaskViewController: UIViewController {
 
     
     var note = Note()
+    var notesArray : [Notes] = []
     
     @IBOutlet var labelTitle: UITextField!
     
@@ -40,12 +42,17 @@ class DetailTaskViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func buttonEditNote(_ sender: UIButton) {
+       
+        
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let newVC = segue.destination as? mapLocationViewController{
             newVC.lat = note.lat
             newVC.long = note.long
         }
     }
+    
     
 
 
