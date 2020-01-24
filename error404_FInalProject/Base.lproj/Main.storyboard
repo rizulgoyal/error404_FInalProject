@@ -200,7 +200,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bg6-Uv-FJs">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bg6-Uv-FJs">
                                 <rect key="frame" x="20" y="432" width="374" height="162"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -221,7 +221,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
-                                <state key="normal" title="EDIT TASK">
+                                <state key="normal" title="EDIT NOTE">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
@@ -230,6 +230,7 @@
                         <viewLayoutGuide key="safeArea" id="pjm-Mc-msE"/>
                     </view>
                     <connections>
+                        <outlet property="imageLabel" destination="fwn-7g-qRM" id="E8j-VM-kPp"/>
                         <outlet property="imageTask" destination="Bg6-Uv-FJs" id="f7O-fX-CC6"/>
                         <outlet property="labelDesc" destination="MZj-Uh-V1A" id="gc2-fx-yLG"/>
                         <outlet property="labelTitle" destination="WCU-y6-kR4" id="Dzv-jZ-qPg"/>
@@ -336,7 +337,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQM-TX-p3Y">
-                                <rect key="frame" x="374" y="447" width="20" height="22"/>
+                                <rect key="frame" x="382" y="439" width="20" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="xmark.circle.fill" catalog="system"/>
                                 <connections>

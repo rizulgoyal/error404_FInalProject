@@ -151,6 +151,7 @@ class NotesTableViewController: UITableViewController,  CLLocationManagerDelegat
                 let desc = object.value(forKey: "desc")
                 let lat = object.value(forKey: "latitude")
                 let long = object.value(forKey: "longitude")
+                let image = object.value(forKey: "image")
 
                 
                 let note = Note()
@@ -158,6 +159,10 @@ class NotesTableViewController: UITableViewController,  CLLocationManagerDelegat
                 note.desc = desc as! String
                 note.lat = lat as! Double
                 note.long = long as! Double
+                if (image != nil)
+                {
+                note.imageData  = image as! Data
+                }
                 
                 
                 notesArray.append(note)
