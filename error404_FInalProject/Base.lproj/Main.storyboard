@@ -318,11 +318,31 @@
                                 <rect key="frame" x="0.0" y="818" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem image="camera" catalog="system" width="219.5" id="Aik-Ml-qsQ"/>
-                                    <barButtonItem image="recordingtape" catalog="system" width="430.5" springLoaded="YES" id="00q-ja-2fq"/>
+                                    <barButtonItem image="camera" catalog="system" width="219.5" id="Aik-Ml-qsQ">
+                                        <connections>
+                                            <action selector="cameraBtn:" destination="uWa-zx-a0e" id="Nww-eD-gzE"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem image="recordingtape" catalog="system" width="430.5" springLoaded="YES" id="00q-ja-2fq">
+                                        <connections>
+                                            <action selector="recordBtn:" destination="uWa-zx-a0e" id="tHg-7S-M0X"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                                 <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </toolbar>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QXt-zn-DvF">
+                                <rect key="frame" x="20" y="447" width="374" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQM-TX-p3Y">
+                                <rect key="frame" x="374" y="447" width="20" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="xmark.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="removeImageBtn:" destination="uWa-zx-a0e" eventType="touchUpInside" id="0gD-LX-kEE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -355,7 +375,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cameraBtn" destination="Aik-Ml-qsQ" id="gfO-Eb-pNs"/>
                         <outlet property="descText" destination="z85-oa-LFE" id="Oix-N9-AxN"/>
+                        <outlet property="removeImageBtn" destination="UQM-TX-p3Y" id="Gi6-si-rDo"/>
+                        <outlet property="selectedImage" destination="QXt-zn-DvF" id="oZN-dH-Job"/>
                         <outlet property="titleText" destination="Dil-rw-vUb" id="jTt-ZP-CrC"/>
                     </connections>
                 </viewController>
@@ -456,5 +479,6 @@
     <resources>
         <image name="camera" catalog="system" width="64" height="48"/>
         <image name="recordingtape" catalog="system" width="64" height="30"/>
+        <image name="xmark.circle.fill" catalog="system" width="64" height="60"/>
     </resources>
 </document>
