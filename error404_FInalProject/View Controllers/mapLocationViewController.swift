@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class mapLocationViewController: UIViewController, MKMapViewDelegate {
+class mapLocationViewController: UIViewController {
     var lat:Double?
     var long:Double?
   //  var location : CLLocationCoordinate2D?
