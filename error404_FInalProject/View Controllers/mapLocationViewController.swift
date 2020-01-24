@@ -32,8 +32,6 @@ class mapLocationViewController: UIViewController {
         let coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
              let annotation = MKPointAnnotation()
              annotation.coordinate = coordinate
-        annotation.title = ""
-                        mapView.addAnnotation(annotation)
         mapView.showsUserLocation = true
         
         let location = CLLocation(latitude: lat!, longitude: long!)
@@ -81,6 +79,8 @@ class mapLocationViewController: UIViewController {
                            }
                                
                            }
+        mapView.addAnnotation(annotation)
+
            
 
         // Do any additional setup after loading the view.

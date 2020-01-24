@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class CategoryTableViewController: UITableViewController {
+    
+    var count : Int?
 
     var categoryArray : [String] = []
     override func viewDidLoad() {
@@ -58,7 +61,8 @@ class CategoryTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryLabel", for: indexPath) as! CategoryTableViewCell
         cell.categoryName.text = categoryArray[indexPath.row]
         
-        // Configure the cell...
+        let number = loadFromCoreData(category: categoryArray[indexPath.row])
+        cell.countlabel.text = String(number)
 
         return cell
     }
@@ -73,6 +77,53 @@ class CategoryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
+    
+    
+    func loadFromCoreData(category : String) -> Int
+         {
+           
+          // self.clearCoreData()
+           
+
+             let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                   
+                    let context = appDelegate.persistentContainer.viewContext
+             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Notes")
+             fetchRequest.returnsObjectsAsFaults = false
+
+              
+              let predicate = NSPredicate(format: "category=%@", "\(category)")
+              fetchRequest.predicate = predicate
+              if let result = try? context.fetch(fetchRequest) {
+                count = result.count
+//               for object in result as! [NSManagedObject] {
+//
+//                   let title = object.value(forKey: "title")
+//                   let desc = object.value(forKey: "desc")
+//                   let lat = object.value(forKey: "latitude")
+//                   let long = object.value(forKey: "longitude")
+//
+//
+//                   let note = Note()
+//                   note.title = title as! String
+//                   note.desc = desc as! String
+//                   note.lat = lat as! Double
+//                   note.long = long as! Double
+//
+//
+//                   notesArray.append(note)
+                  }
+            return count!
+              }
+           
+           
+       
+//       override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//           if let newVC = segue.destination as? AddNewNoteViewController
+//           {
+//           newVC.category = self.category
+//           }
+//       }
     
 
     /*

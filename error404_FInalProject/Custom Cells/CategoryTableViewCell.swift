@@ -9,7 +9,8 @@
 import UIKit
 
 class CategoryTableViewCell: UITableViewCell {
-
+    @IBOutlet var countlabel: UILabel!
+    
     @IBOutlet var categoryName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
