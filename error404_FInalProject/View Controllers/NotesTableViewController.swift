@@ -176,6 +176,8 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
         
        // self.clearCoreData()
         
+        
+        // new
 
           let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 
