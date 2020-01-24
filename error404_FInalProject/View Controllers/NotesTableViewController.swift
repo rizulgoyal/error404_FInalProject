@@ -99,17 +99,13 @@ class NotesTableViewController: UITableViewController,  CLLocationManagerDelegat
                           
                             self.addressm = address
                             cell.addressLabel.text = address
-                            
-                            
-                            
-                            
+       
                       }
                         
                     }
                         
                     }
-      //  let address : String = String(self.getaddress(lat: currnote.lat, long: currnote.long))
-        
+    
         cell.addressLabel.text = addressm
         
         cell.dateLabel.text = currnote.dateString
@@ -117,6 +113,16 @@ class NotesTableViewController: UITableViewController,  CLLocationManagerDelegat
         // Configure the cell...
 
         return cell
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let newVC = sb.instantiateViewController(identifier: "noteDetail") as! DetailTaskViewController
+        let currnote =  notesArray[indexPath.row]
+
+        newVC.note = currnote
+        navigationController?.pushViewController(newVC, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -192,60 +198,7 @@ class NotesTableViewController: UITableViewController,  CLLocationManagerDelegat
     
     }
     
-    func getaddress(lat : Double, long: Double) -> String {
-        let location = CLLocation(latitude: lat, longitude: long)
-        
-        var address = ""
-        
-            CLGeocoder().reverseGeocodeLocation(location){(placemarks, error) in
-            if let error = error
-            {
-                print(error)
-            }
-            else
-            {
-                if let placemark = placemarks?[0]{
-//                    if placemark.subThoroughfare != nil{
-//                        address = address + placemark.subThoroughfare! + " "
-//                    }
-//
-//                    if placemark.thoroughfare != nil{
-//                        address = address + placemark.thoroughfare! + " "
-//                    }
-//
-//                    if placemark.subLocality != nil{
-//                        address = address + placemark.subLocality!  + " "
-//                    }
-//
-                    if placemark.subAdministrativeArea != nil{
-                     //   annotation.title = placemark.subAdministrativeArea
-
-                        address = address + placemark.subAdministrativeArea! + " "
-                    }
-                    
-//                    if placemark.postalCode != nil{
-//                        address = address + placemark.postalCode! + " "
-//                    }
-                    
-                    if placemark.country != nil{
-                        address = address + placemark.country! + " "
-                    }
-                  
-                    self.addressm = address
-                    
-                    
-                    
-                    
-              }
-                
-            }
-                
-            }
-        return address
-
-    }
     
-
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

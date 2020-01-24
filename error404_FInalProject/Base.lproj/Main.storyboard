@@ -153,10 +153,10 @@
             </objects>
             <point key="canvasLocation" x="3513.04347826087" y="115.84821428571428"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail Task View Controller-->
         <scene sceneID="up4-5L-XhP">
             <objects>
-                <viewController id="dIl-Cx-m8B" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="noteDetail" id="dIl-Cx-m8B" customClass="DetailTaskViewController" customModule="error404_FInalProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rzK-4i-d8e">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -187,6 +187,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="labelTitle:" destination="ycN-t5-X63" eventType="editingDidEnd" id="iUK-2n-qk4"/>
+                                </connections>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MZj-Uh-V1A">
                                 <rect key="frame" x="20" y="195" width="374" height="187"/>
@@ -209,6 +212,9 @@
                                 <state key="normal" title="SEE LIVE LOCATION">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <segue destination="bsY-Ld-JTB" kind="show" id="751-Hw-wzr"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8A-3E-3fR">
                                 <rect key="frame" x="50" y="778" width="315" height="42"/>
@@ -223,10 +229,57 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="pjm-Mc-msE"/>
                     </view>
+                    <connections>
+                        <outlet property="imageTask" destination="Bg6-Uv-FJs" id="f7O-fX-CC6"/>
+                        <outlet property="labelDesc" destination="MZj-Uh-V1A" id="gc2-fx-yLG"/>
+                        <outlet property="labelTitle" destination="WCU-y6-kR4" id="Dzv-jZ-qPg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="haw-9W-FOW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="ycN-t5-X63" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4095.652173913044" y="-559.15178571428567"/>
+        </scene>
+        <!--Map Location View Controller-->
+        <scene sceneID="qfw-J3-ymh">
+            <objects>
+                <viewController id="bsY-Ld-JTB" customClass="mapLocationViewController" customModule="error404_FInalProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3Zf-sW-J0p">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wBE-Gl-dzb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wib-5A-Cdk">
+                                <rect key="frame" x="293" y="730" width="101" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Find Route"/>
+                                <connections>
+                                    <action selector="navigateRoute:" destination="bsY-Ld-JTB" eventType="touchUpInside" id="46E-7k-coy"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="wBE-Gl-dzb" firstAttribute="leading" secondItem="WrH-55-qGI" secondAttribute="leading" id="K0J-me-7Hq"/>
+                            <constraint firstItem="WrH-55-qGI" firstAttribute="trailing" secondItem="wBE-Gl-dzb" secondAttribute="trailing" id="QPC-cO-bvR"/>
+                            <constraint firstItem="WrH-55-qGI" firstAttribute="bottom" secondItem="wBE-Gl-dzb" secondAttribute="bottom" id="tva-81-rdw"/>
+                            <constraint firstItem="wBE-Gl-dzb" firstAttribute="top" secondItem="WrH-55-qGI" secondAttribute="top" id="u3m-4o-RL7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="WrH-55-qGI"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LXe-Ao-njz"/>
+                    <connections>
+                        <outlet property="mapView" destination="wBE-Gl-dzb" id="JLw-x9-LsE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="io9-XY-NHe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4860.8695652173919" y="-560.49107142857144"/>
         </scene>
         <!--Add New Note-->
         <scene sceneID="3IH-GF-h8w">
