@@ -15,6 +15,7 @@ class DetailTaskViewController: UIViewController {
     
     @IBOutlet var labelTitle: UITextField!
     
+    @IBOutlet weak var imageLabel: UILabel!
     @IBOutlet var imageTask: UIImageView!
     @IBOutlet var labelDesc: UITextView!
     override func viewDidLoad() {
@@ -22,6 +23,17 @@ class DetailTaskViewController: UIViewController {
         
         labelTitle.text = note.title
         labelDesc.text = note.desc
+        let imgData = note.imageData
+        imageTask.isHidden = true
+        imageLabel.isHidden  = true
+        if !(imgData.isEmpty)
+        {
+            imageTask.isHidden = false
+            imageLabel.isHidden  = false
+            
+            let img = UIImage(data: imgData)
+            imageTask.image = img
+        }
         
         
 

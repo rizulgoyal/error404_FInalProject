@@ -85,6 +85,7 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         {
         note.imageData = self.imageData
         }
+        print(imageData)
         noteArray.append(note)
         print(self.category)
         saveToCoreData()
@@ -138,7 +139,7 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
             self.selectedImage.image = image
             self.removeImageBtn.isHidden =  false
             //self.AddPhotoBTN.isHidden =  true
-            //imageData = image.pngData()!
+            imageData = image.pngData()!
         }
         self.dismiss(animated: true, completion: nil)
     }
