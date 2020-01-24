@@ -22,10 +22,13 @@ class mapLocationViewController: UIViewController {
         case walking
         
     }
+    
     var transport = false
 
 
     @IBOutlet var mapView: MKMapView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self

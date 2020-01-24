@@ -245,6 +245,9 @@
                                 <state key="normal" title="EDIT NOTE">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="buttonEditNote:" destination="dIl-Cx-m8B" eventType="touchUpInside" id="NYc-nP-gkc"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -183,11 +183,12 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
           let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Notes")
           fetchRequest.returnsObjectsAsFaults = false
 
-           
+        
            let predicate = NSPredicate(format: "category=%@", "\(category)")
            fetchRequest.predicate = predicate
            if let result = try? context.fetch(fetchRequest) {
             for object in result as! [NSManagedObject] {
+                
                 
                 let title = object.value(forKey: "title")
                 let desc = object.value(forKey: "desc")
