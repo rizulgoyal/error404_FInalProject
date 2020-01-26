@@ -16,6 +16,7 @@ class CategoryTableViewController: UITableViewController {
     var categoryArray : [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.separatorStyle = .none
         let userDefaults = UserDefaults.standard
         if UserDefaults.exists(key: "category")
         {
@@ -25,7 +26,7 @@ class CategoryTableViewController: UITableViewController {
         }
         else
         {
-            categoryArray = ["Home","Work"]
+            categoryArray = ["Home","Work",""]
             userDefaults.set(categoryArray, forKey: "category")
             userDefaults.synchronize()
             print("dont exist")
@@ -64,7 +65,9 @@ class CategoryTableViewController: UITableViewController {
         
         let number = loadFromCoreData(category: categoryArray[indexPath.row])
         cell.countlabel.text = String(number)
-
+        cell.contentView.addShadow1()
+        cell.layer.borderColor = UIColor.white.cgColor
+        cell.layer.borderWidth = 6
         return cell
     }
     
@@ -79,7 +82,7 @@ class CategoryTableViewController: UITableViewController {
         navigationController?.pushViewController(newVC, animated: true)
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 80
     }
     
     
@@ -186,3 +189,16 @@ extension UserDefaults {
     }
 
 }
+extension UIView {
+
+    func addShadow1(){
+       self.layer.cornerRadius = 30.0
+       self.layer.shadowColor = UIColor.gray.cgColor
+        //self.layer.borderColor = UIColor.black.cgColor
+       self.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+       self.layer.shadowRadius = 15.0
+       self.layer.shadowOpacity = 0.7
+
+    }
+}
+

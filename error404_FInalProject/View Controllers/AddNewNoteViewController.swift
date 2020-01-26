@@ -13,16 +13,18 @@ import CoreLocation
 import Photos
 
 
-class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UNUserNotificationCenterDelegate  {
+class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UNUserNotificationCenterDelegate {
 
 
-    @IBOutlet var titleText: UITextField!
+   
+    @IBOutlet var titleText: UITextView!
     
     @IBOutlet weak var descText: UITextView!
     
     @IBOutlet weak var selectedImage: UIImageView!
     
-    @IBOutlet weak var cameraBtn: UIBarButtonItem!
+
+    @IBOutlet var BtnCamera: UIButton!
     
     @IBOutlet weak var removeImageBtn: UIButton!
     
@@ -36,6 +38,9 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
     var noteArray = [Note]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        titleText.delegate = self
+        titleText.text = "Enter Title"
+        titleText.textColor = UIColor.lightGray
         removeImageBtn.isHidden = true
         selectedImage.isHidden = true
         descText.delegate = self
@@ -85,6 +90,7 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         {
         note.imageData = self.imageData
         }
+        
         print(imageData)
         noteArray.append(note)
         print(self.category)
@@ -129,6 +135,10 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         if descText.textColor == UIColor.lightGray {
             descText.text = ""
             descText.textColor = UIColor.black
+        }
+        if titleText.textColor == UIColor.lightGray {
+            titleText.text = ""
+            titleText.textColor = UIColor.black
         }
     }
     

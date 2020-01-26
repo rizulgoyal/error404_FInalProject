@@ -12,7 +12,8 @@ import MapKit
 import CoreLocation
 
 class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLocationManagerDelegate{
-
+    @IBOutlet var contentView: UIView!
+    
     @IBOutlet var searchNote: UISearchBar!
     var category = ""
     var notesArray = [Note]()
@@ -24,6 +25,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.separatorStyle = .none
         searchNote.delegate = self
 //        clearCoreData()
 //        notesArray.removeAll()
@@ -106,7 +108,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
                     }
     
         cell.addressLabel.text = addressm
-        
+        cell.descLabel.text = currnote.desc
         cell.dateLabel.text = currnote.dateString
         
         }
@@ -149,11 +151,14 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
                             }
             
                 cell.addressLabel.text = addressm
-                
+            cell.descLabel.text = currnote.desc
                 cell.dateLabel.text = currnote.dateString
                 
                 
         }
+        cell.contentView.addShadow()
+        cell.layer.borderColor = UIColor.white.cgColor
+        cell.layer.borderWidth = 6
         return cell
     }
     
@@ -164,6 +169,8 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
         let currnote =  notesArray[indexPath.row]
 
         newVC.note = currnote
+        newVC.categoryPassed = self.category
+        print(currnote.category)
         navigationController?.pushViewController(newVC, animated: true)
     }
     
@@ -197,6 +204,8 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
                 let lat = object.value(forKey: "latitude")
                 let long = object.value(forKey: "longitude")
                 let image = object.value(forKey: "image")
+                let category = object.value(forKey: "category")
+                let audiopath = object.value(forKey: "audiopath")
 
                 
                 let note = Note()
@@ -204,9 +213,14 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
                 note.desc = desc as! String
                 note.lat = lat as! Double
                 note.long = long as! Double
+                note.category = category as! String
                 if (image != nil)
                 {
                 note.imageData  = image as! Data
+                }
+                if (audiopath != nil)
+                {
+                    note.audiopath = audiopath as! String
                 }
                 
                 
@@ -221,9 +235,15 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
           // first action for adding day
            let action = UIContextualAction(
                  style: .normal,
-                 title: "Edit Note",
+                 title: "Change Folder",
                  handler: { (action, view, completion) in
-                  
+                let sb = UIStoryboard(name: "Main", bundle: nil)
+                let newVC = sb.instantiateViewController(identifier: "chooseCategroy") as! ChooseCategoryTableViewController
+                    newVC.note = self.notesArray[indexPath.row]
+                    print(self.notesArray[indexPath.row].title)
+                    self.navigationController?.pushViewController(newVC, animated: true)
+                    
+                
                
                               
 //
@@ -231,7 +251,8 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
              })
 
           
-             action.backgroundColor = .blue
+        action.backgroundColor = .lightGray
+         action.image = UIImage(systemName: "folder")
           
           
           
@@ -246,7 +267,11 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
                                          
                                let context = appdelegate.persistentContainer.viewContext
                                let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Notes")
+                  fetchRequest.returnsObjectsAsFaults = false
+
                   
+                    let predicate = NSPredicate(format: "category=%@", "\(self.category)")
+                     fetchRequest.predicate = predicate
                    
                    do
                    {
@@ -281,6 +306,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
 
           
              action1.backgroundColor = .red
+        action1.image = UIImage(systemName: "trash")
           
           
              let configuration = UISwipeActionsConfiguration(actions: [action1, action])
@@ -391,5 +417,26 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
         // Pass the selected object to the new view controller.
     }
     */
+}
+extension UIView {
 
+    func setCardView(){
+        layer.cornerRadius = 5.0
+        layer.borderColor  =  UIColor.clear.cgColor
+        layer.borderWidth = 5.0
+        layer.shadowOpacity = 0.5
+        layer.shadowColor =  UIColor.lightGray.cgColor
+        layer.shadowRadius = 5.0
+        layer.shadowOffset = CGSize(width:5, height: 5)
+        layer.masksToBounds = true
+    }
+    func addShadow(){
+       self.layer.cornerRadius = 30.0
+       self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.borderColor = UIColor.black.cgColor
+       self.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+       self.layer.shadowRadius = 12.0
+       self.layer.shadowOpacity = 0.7
+
+    }
 }

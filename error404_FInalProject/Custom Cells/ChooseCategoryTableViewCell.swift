@@ -1,21 +1,16 @@
 //
-//  NotesTableViewCell.swift
+//  ChooseCategoryTableViewCell.swift
 //  error404_FInalProject
 //
-//  Created by Rizul goyal on 2020-01-22.
+//  Created by Rizul goyal on 2020-01-26.
 //  Copyright © 2020 Rizul goyal. All rights reserved.
 //
 
 import UIKit
 
-class NotesTableViewCell: UITableViewCell {
-    @IBOutlet var titleLabel: UILabel!
-    
-    @IBOutlet var contentView1: UIView!
-    @IBOutlet var addressLabel: UILabel!
-    @IBOutlet var dateLabel: UILabel!
+class ChooseCategoryTableViewCell: UITableViewCell {
 
-    @IBOutlet var descLabel: UILabel!
+    @IBOutlet var chooseCategory: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

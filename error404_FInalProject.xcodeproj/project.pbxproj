@@ -14,6 +14,17 @@
 		E08F3C6623DA552E00069ED2 /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C6523DA552E00069ED2 /* AddCategoryViewController.swift */; };
 		E08F3C6823DA5A8E00069ED2 /* DetailTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C6723DA5A8E00069ED2 /* DetailTaskViewController.swift */; };
 		E08F3C6A23DA5CED00069ED2 /* mapLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C6923DA5CED00069ED2 /* mapLocationViewController.swift */; };
+		E09506A123DE1DAB00EBFFF0 /* sort.png in Resources */ = {isa = PBXBuildFile; fileRef = E09506A023DE1DAB00EBFFF0 /* sort.png */; };
+		E09506A723DE4A1800EBFFF0 /* ChooseCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09506A623DE4A1800EBFFF0 /* ChooseCategoryTableViewController.swift */; };
+		E09506A923DE4CAD00EBFFF0 /* ChooseCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09506A823DE4CAD00EBFFF0 /* ChooseCategoryTableViewCell.swift */; };
+		E0BC001723DD0C470086DA46 /* music-and-multimedia.png in Resources */ = {isa = PBXBuildFile; fileRef = E0BC001623DD0C470086DA46 /* music-and-multimedia.png */; };
+		E0BC001B23DD0C570086DA46 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = E0BC001823DD0C570086DA46 /* pin.png */; };
+		E0BC001C23DD0C570086DA46 /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = E0BC001923DD0C570086DA46 /* trash.png */; };
+		E0BC001D23DD0C570086DA46 /* shutter.png in Resources */ = {isa = PBXBuildFile; fileRef = E0BC001A23DD0C570086DA46 /* shutter.png */; };
+		E0BC002223DD0DBF0086DA46 /* microphone.png in Resources */ = {isa = PBXBuildFile; fileRef = E0BC001E23DD0DBF0086DA46 /* microphone.png */; };
+		E0BC002323DD0DBF0086DA46 /* pin (1).png in Resources */ = {isa = PBXBuildFile; fileRef = E0BC001F23DD0DBF0086DA46 /* pin (1).png */; };
+		E0BC002423DD0DBF0086DA46 /* bin.png in Resources */ = {isa = PBXBuildFile; fileRef = E0BC002023DD0DBF0086DA46 /* bin.png */; };
+		E0BC002523DD0DBF0086DA46 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = E0BC002123DD0DBF0086DA46 /* camera.png */; };
 		E0F21CBC23D9314900489FC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F21CBB23D9314900489FC2 /* AppDelegate.swift */; };
 		E0F21CBE23D9314900489FC2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F21CBD23D9314900489FC2 /* SceneDelegate.swift */; };
 		E0F21CC323D9314900489FC2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0F21CC123D9314900489FC2 /* Main.storyboard */; };
@@ -32,6 +43,17 @@
 		E08F3C6523DA552E00069ED2 /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 		E08F3C6723DA5A8E00069ED2 /* DetailTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTaskViewController.swift; sourceTree = "<group>"; };
 		E08F3C6923DA5CED00069ED2 /* mapLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapLocationViewController.swift; sourceTree = "<group>"; };
+		E09506A023DE1DAB00EBFFF0 /* sort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sort.png; sourceTree = "<group>"; };
+		E09506A623DE4A1800EBFFF0 /* ChooseCategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCategoryTableViewController.swift; sourceTree = "<group>"; };
+		E09506A823DE4CAD00EBFFF0 /* ChooseCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCategoryTableViewCell.swift; sourceTree = "<group>"; };
+		E0BC001623DD0C470086DA46 /* music-and-multimedia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music-and-multimedia.png"; sourceTree = "<group>"; };
+		E0BC001823DD0C570086DA46 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		E0BC001923DD0C570086DA46 /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trash.png; sourceTree = "<group>"; };
+		E0BC001A23DD0C570086DA46 /* shutter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shutter.png; sourceTree = "<group>"; };
+		E0BC001E23DD0DBF0086DA46 /* microphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = microphone.png; sourceTree = "<group>"; };
+		E0BC001F23DD0DBF0086DA46 /* pin (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin (1).png"; sourceTree = "<group>"; };
+		E0BC002023DD0DBF0086DA46 /* bin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bin.png; sourceTree = "<group>"; };
+		E0BC002123DD0DBF0086DA46 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		E0F21CB823D9314900489FC2 /* error404_FInalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = error404_FInalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0F21CBB23D9314900489FC2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0F21CBD23D9314900489FC2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +82,7 @@
 			children = (
 				E08F3C5D23D9411C00069ED2 /* CategoryTableViewCell.swift */,
 				E08F3C6323D9592700069ED2 /* NotesTableViewCell.swift */,
+				E09506A823DE4CAD00EBFFF0 /* ChooseCategoryTableViewCell.swift */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -89,6 +112,15 @@
 				E0F21CBB23D9314900489FC2 /* AppDelegate.swift */,
 				E0F21CBD23D9314900489FC2 /* SceneDelegate.swift */,
 				E0F21CC123D9314900489FC2 /* Main.storyboard */,
+				E0BC001623DD0C470086DA46 /* music-and-multimedia.png */,
+				E0BC001823DD0C570086DA46 /* pin.png */,
+				E0BC002023DD0DBF0086DA46 /* bin.png */,
+				E0BC002123DD0DBF0086DA46 /* camera.png */,
+				E09506A023DE1DAB00EBFFF0 /* sort.png */,
+				E0BC001E23DD0DBF0086DA46 /* microphone.png */,
+				E0BC001F23DD0DBF0086DA46 /* pin (1).png */,
+				E0BC001A23DD0C570086DA46 /* shutter.png */,
+				E0BC001923DD0C570086DA46 /* trash.png */,
 				E0F21CC723D9314A00489FC2 /* Assets.xcassets */,
 				E0F21CC923D9314A00489FC2 /* LaunchScreen.storyboard */,
 				E0F21CCC23D9314A00489FC2 /* Info.plist */,
@@ -114,6 +146,7 @@
 				E08F3C6523DA552E00069ED2 /* AddCategoryViewController.swift */,
 				E08F3C6723DA5A8E00069ED2 /* DetailTaskViewController.swift */,
 				E08F3C6923DA5CED00069ED2 /* mapLocationViewController.swift */,
+				E09506A623DE4A1800EBFFF0 /* ChooseCategoryTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -176,9 +209,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0BC002523DD0DBF0086DA46 /* camera.png in Resources */,
+				E0BC001723DD0C470086DA46 /* music-and-multimedia.png in Resources */,
+				E0BC001D23DD0C570086DA46 /* shutter.png in Resources */,
 				E0F21CCB23D9314A00489FC2 /* LaunchScreen.storyboard in Resources */,
+				E0BC001C23DD0C570086DA46 /* trash.png in Resources */,
 				E0F21CC823D9314A00489FC2 /* Assets.xcassets in Resources */,
+				E0BC002223DD0DBF0086DA46 /* microphone.png in Resources */,
+				E0BC001B23DD0C570086DA46 /* pin.png in Resources */,
+				E0BC002323DD0DBF0086DA46 /* pin (1).png in Resources */,
 				E0F21CC323D9314900489FC2 /* Main.storyboard in Resources */,
+				E0BC002423DD0DBF0086DA46 /* bin.png in Resources */,
+				E09506A123DE1DAB00EBFFF0 /* sort.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,8 +235,10 @@
 				E08F3C6023D9486900069ED2 /* NotesTableViewController.swift in Sources */,
 				E0F21CD323D931A100489FC2 /* CategoryTableViewController.swift in Sources */,
 				E0F21CBC23D9314900489FC2 /* AppDelegate.swift in Sources */,
+				E09506A923DE4CAD00EBFFF0 /* ChooseCategoryTableViewCell.swift in Sources */,
 				E08F3C6A23DA5CED00069ED2 /* mapLocationViewController.swift in Sources */,
 				E08F3C5E23D9411C00069ED2 /* CategoryTableViewCell.swift in Sources */,
+				E09506A723DE4A1800EBFFF0 /* ChooseCategoryTableViewController.swift in Sources */,
 				E08F3C6223D94E5800069ED2 /* AddNewNoteViewController.swift in Sources */,
 				E08F3C6623DA552E00069ED2 /* AddCategoryViewController.swift in Sources */,
 				E08F3C6423D9592700069ED2 /* NotesTableViewCell.swift in Sources */,
