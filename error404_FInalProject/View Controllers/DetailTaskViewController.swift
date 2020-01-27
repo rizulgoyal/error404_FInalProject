@@ -126,15 +126,28 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
     
     @IBAction func deleteBtn(_ sender: Any)
     {
-        deleteData()
-        count = 1
-        navigationController?.popViewController(animated: true)
-    }
+        let alert = UIAlertController(title: "Delete Note", message: "Are You Sure You Want to Delete the Note?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Delete", style: .destructive){
+            UIAlertAction in
+            self.deleteData()
+            self.count = 1
+            self.navigationController?.popViewController(animated: true)
+        }
+        alert.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+               alert.addAction(cancelAction)
+               
+               self.present(alert, animated: true, completion: nil)
+               }
+    
+        
+        
+        
     
     override func viewWillDisappear(_ animated: Bool) {
         
         print(categoryPassed)
-        if count == 1{
+        if count == 0{
         let title = textTitle.text
         let desc = labelDesc.text
         let date = note.createdAt
@@ -197,8 +210,19 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
     
     @IBAction func removeImageBtn(_ sender: Any)
     {
-        imageTask.isHidden = true
-        removeImgBtn.isHidden = true
+        
+        let alert = UIAlertController(title: "Delete Image", message: "Are You Sure You Want to Delete the Image form the Note?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Delete", style: .destructive){
+            UIAlertAction in
+            self.imageTask.isHidden = true
+            self.removeImgBtn.isHidden = true
+        }
+        alert.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+               alert.addAction(cancelAction)
+               
+               self.present(alert, animated: true, completion: nil)
+        
     }
     
     
@@ -275,7 +299,7 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
             //record_btn_ref.setTitle("Stop", for: .normal)
             //play_btn_ref.isEnabled = false
             isRecording = true
-        display_alert1(msg_title: "recording", msg_desc: "app is now recording audio", action_title: "stop")
+        display_alert1(msg_title: "Recording Audio Note", msg_desc: "app is now recording audio", action_title: "stop")
         }
         
     }
@@ -440,7 +464,17 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
     
     @IBAction func removeRecording(_ sender: Any)
     {
-        audioPlayerView.isHidden = true
+        
+        let alert = UIAlertController(title: "Delete Recording", message: "Are You Sure You Want to Delete the Audio Note?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Delete", style: .destructive){
+            UIAlertAction in
+            self.audioPlayerView.isHidden = true
+        }
+        alert.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+               alert.addAction(cancelAction)
+               
+               self.present(alert, animated: true, completion: nil)
     }
     
     
@@ -629,7 +663,18 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
             //record_btn_ref.setTitle("Record", for: .normal)
                 //play_btn_ref.isEnabled = true
                 self.isRecording = false
-               
+               do{
+                                 
+                self.audioPlayer = try AVAudioPlayer(contentsOf: self.getFileUrl())
+                                     var updateTimer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
+                self.timer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateSlider), userInfo: nil, repeats: true)
+                self.seeker.maximumValue = Float(self.audioPlayer.duration)
+                self.setDuration()
+                self.updateTime()
+                                 }
+                                 catch{
+                                         print(error)
+                                 }
                 self.audioPlayerView.isHidden = false
                 self.note.audiopath = "\(self.getFileUrl())"
                 //print(note.audiopath)

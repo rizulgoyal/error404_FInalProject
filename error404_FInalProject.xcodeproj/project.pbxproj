@@ -9,14 +9,14 @@
 /* Begin PBXBuildFile section */
 		E08F3C5E23D9411C00069ED2 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C5D23D9411C00069ED2 /* CategoryTableViewCell.swift */; };
 		E08F3C6023D9486900069ED2 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C5F23D9486900069ED2 /* NotesTableViewController.swift */; };
-		E08F3C6223D94E5800069ED2 /* AddNewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C6123D94E5800069ED2 /* AddNewNoteViewController.swift */; };
 		E08F3C6423D9592700069ED2 /* NotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C6323D9592700069ED2 /* NotesTableViewCell.swift */; };
-		E08F3C6623DA552E00069ED2 /* AddCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C6523DA552E00069ED2 /* AddCategoryViewController.swift */; };
 		E08F3C6823DA5A8E00069ED2 /* DetailTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C6723DA5A8E00069ED2 /* DetailTaskViewController.swift */; };
 		E08F3C6A23DA5CED00069ED2 /* mapLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C6923DA5CED00069ED2 /* mapLocationViewController.swift */; };
 		E09506A123DE1DAB00EBFFF0 /* sort.png in Resources */ = {isa = PBXBuildFile; fileRef = E09506A023DE1DAB00EBFFF0 /* sort.png */; };
 		E09506A723DE4A1800EBFFF0 /* ChooseCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09506A623DE4A1800EBFFF0 /* ChooseCategoryTableViewController.swift */; };
 		E09506A923DE4CAD00EBFFF0 /* ChooseCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09506A823DE4CAD00EBFFF0 /* ChooseCategoryTableViewCell.swift */; };
+		E09506AB23DF783F00EBFFF0 /* AddNewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09506AA23DF783F00EBFFF0 /* AddNewNoteViewController.swift */; };
+		E09506AF23DF8B3E00EBFFF0 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09506AE23DF8B3E00EBFFF0 /* PopupViewController.swift */; };
 		E0BC001723DD0C470086DA46 /* music-and-multimedia.png in Resources */ = {isa = PBXBuildFile; fileRef = E0BC001623DD0C470086DA46 /* music-and-multimedia.png */; };
 		E0BC001B23DD0C570086DA46 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = E0BC001823DD0C570086DA46 /* pin.png */; };
 		E0BC001C23DD0C570086DA46 /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = E0BC001923DD0C570086DA46 /* trash.png */; };
@@ -38,14 +38,14 @@
 /* Begin PBXFileReference section */
 		E08F3C5D23D9411C00069ED2 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		E08F3C5F23D9486900069ED2 /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
-		E08F3C6123D94E5800069ED2 /* AddNewNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewNoteViewController.swift; sourceTree = "<group>"; };
 		E08F3C6323D9592700069ED2 /* NotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewCell.swift; sourceTree = "<group>"; };
-		E08F3C6523DA552E00069ED2 /* AddCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewController.swift; sourceTree = "<group>"; };
 		E08F3C6723DA5A8E00069ED2 /* DetailTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTaskViewController.swift; sourceTree = "<group>"; };
 		E08F3C6923DA5CED00069ED2 /* mapLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapLocationViewController.swift; sourceTree = "<group>"; };
 		E09506A023DE1DAB00EBFFF0 /* sort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sort.png; sourceTree = "<group>"; };
 		E09506A623DE4A1800EBFFF0 /* ChooseCategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCategoryTableViewController.swift; sourceTree = "<group>"; };
 		E09506A823DE4CAD00EBFFF0 /* ChooseCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCategoryTableViewCell.swift; sourceTree = "<group>"; };
+		E09506AA23DF783F00EBFFF0 /* AddNewNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewNoteViewController.swift; sourceTree = "<group>"; };
+		E09506AE23DF8B3E00EBFFF0 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		E0BC001623DD0C470086DA46 /* music-and-multimedia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "music-and-multimedia.png"; sourceTree = "<group>"; };
 		E0BC001823DD0C570086DA46 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		E0BC001923DD0C570086DA46 /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trash.png; sourceTree = "<group>"; };
@@ -133,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				E0F21CD723D93A0400489FC2 /* Note.swift */,
+				E09506AE23DF8B3E00EBFFF0 /* PopupViewController.swift */,
 			);
 			path = "Model Class";
 			sourceTree = "<group>";
@@ -142,11 +143,10 @@
 			children = (
 				E0F21CD223D931A100489FC2 /* CategoryTableViewController.swift */,
 				E08F3C5F23D9486900069ED2 /* NotesTableViewController.swift */,
-				E08F3C6123D94E5800069ED2 /* AddNewNoteViewController.swift */,
-				E08F3C6523DA552E00069ED2 /* AddCategoryViewController.swift */,
 				E08F3C6723DA5A8E00069ED2 /* DetailTaskViewController.swift */,
 				E08F3C6923DA5CED00069ED2 /* mapLocationViewController.swift */,
 				E09506A623DE4A1800EBFFF0 /* ChooseCategoryTableViewController.swift */,
+				E09506AA23DF783F00EBFFF0 /* AddNewNoteViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -239,12 +239,12 @@
 				E08F3C6A23DA5CED00069ED2 /* mapLocationViewController.swift in Sources */,
 				E08F3C5E23D9411C00069ED2 /* CategoryTableViewCell.swift in Sources */,
 				E09506A723DE4A1800EBFFF0 /* ChooseCategoryTableViewController.swift in Sources */,
-				E08F3C6223D94E5800069ED2 /* AddNewNoteViewController.swift in Sources */,
-				E08F3C6623DA552E00069ED2 /* AddCategoryViewController.swift in Sources */,
 				E08F3C6423D9592700069ED2 /* NotesTableViewCell.swift in Sources */,
 				E0F21CBE23D9314900489FC2 /* SceneDelegate.swift in Sources */,
+				E09506AB23DF783F00EBFFF0 /* AddNewNoteViewController.swift in Sources */,
 				E08F3C6823DA5A8E00069ED2 /* DetailTaskViewController.swift in Sources */,
 				E0F21CD823D93A0400489FC2 /* Note.swift in Sources */,
+				E09506AF23DF8B3E00EBFFF0 /* PopupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

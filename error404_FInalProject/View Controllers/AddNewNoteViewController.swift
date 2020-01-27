@@ -5,7 +5,6 @@
 //  Created by Rizul goyal on 2020-01-22.
 //  Copyright © 2020 Rizul goyal. All rights reserved.
 //
-
 import UIKit
 import CoreData
 import MapKit
@@ -228,9 +227,19 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
 
     @IBAction func removeImageBtn(_ sender: Any)
     {
-        self.selectedImage.isHidden = true
-        self.removeImageBtn.isHidden = true
-        imageData = Data()
+        
+        let alert = UIAlertController(title: "Delete Image", message: "Are You Sure You Want to Delete the Image form the Note?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Delete", style: .destructive){
+            UIAlertAction in
+           self.selectedImage.isHidden = true
+            self.removeImageBtn.isHidden = true
+            self.imageData = Data()
+        }
+        alert.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+               alert.addAction(cancelAction)
+               
+               self.present(alert, animated: true, completion: nil)
     }
     
 
@@ -244,7 +253,6 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
     
     /*
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
@@ -286,41 +294,42 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
     
     @IBAction func recordBtn(_ sender: Any)
     {
-        if(isRecording)
+        if(isRecording == false)
         {
-            finishAudioRecording(success: true)
-        //record_btn_ref.setTitle("Record", for: .normal)
-            //play_btn_ref.isEnabled = true
-            isRecording = false
-            
-            do{
-                   
-                       audioPlayer = try AVAudioPlayer(contentsOf: getFileUrl())
-                       var updateTimer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
-                       timer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateSlider), userInfo: nil, repeats: true)
-                       seeker.maximumValue = Float(audioPlayer.duration)
-                       setDuration()
-                       updateTime()
-                   }
-                   catch{
-                           print(error)
-                   }
-            audioPlayerView.isHidden = false
-            //print(note.audiopath)
-            
-        }
-        else
-        {
+//            finishAudioRecording(success: true)
+//        //record_btn_ref.setTitle("Record", for: .normal)
+//            //play_btn_ref.isEnabled = true
+//            isRecording = false
+//
+//            do{
+//
+//                       audioPlayer = try AVAudioPlayer(contentsOf: getFileUrl())
+//                       var updateTimer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
+//                       timer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateSlider), userInfo: nil, repeats: true)
+//                       seeker.maximumValue = Float(audioPlayer.duration)
+//                       setDuration()
+//                       updateTime()
+//                   }
+//                   catch{
+//                           print(error)
+//                   }
+//            audioPlayerView.isHidden = false
+//            //print(note.audiopath)
+//
+//        }
+//        else
+//        {
             check_record_permission()
             setup_recorder()
 
             audioRecorder.record()
-            display_alert(msg_title: "recording", msg_desc: "app is now recording audio", action_title: "ok")
+            
             
             //meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
             //record_btn_ref.setTitle("Stop", for: .normal)
             //play_btn_ref.isEnabled = false
             isRecording = true
+            display_alert1(msg_title: "recording", msg_desc: "app is now recording audio", action_title: "Stop")
         }
     }
     
@@ -354,7 +363,16 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
     
     @IBAction func removeRecording(_ sender: Any)
     {
-        audioPlayerView.isHidden = true
+        let alert = UIAlertController(title: "Delete Recording", message: "Are You Sure You Want to Delete the Audio Note?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Delete", style: .destructive){
+            UIAlertAction in
+            self.audioPlayerView.isHidden = true
+        }
+        alert.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+               alert.addAction(cancelAction)
+               
+               self.present(alert, animated: true, completion: nil)
         
     }
     
@@ -469,6 +487,39 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         ac.addAction(UIAlertAction(title: action_title, style: .default)
         {
             (result : UIAlertAction) -> Void in
+        //_ = self.navigationController?.popViewController(animated: true)
+        })
+        present(ac, animated: true)
+    }
+    func display_alert1(msg_title : String , msg_desc : String ,action_title : String)
+    {
+        let ac = UIAlertController(title: msg_title, message: msg_desc, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: action_title, style: .destructive)
+        {
+            (result : UIAlertAction) -> Void in
+            if(self.isRecording)
+            {
+                self.finishAudioRecording(success: true)
+            //record_btn_ref.setTitle("Record", for: .normal)
+                //play_btn_ref.isEnabled = true
+                self.isRecording = false
+               do{
+                                 
+                self.audioPlayer = try AVAudioPlayer(contentsOf: self.getFileUrl())
+                                     var updateTimer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
+                self.timer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateSlider), userInfo: nil, repeats: true)
+                self.seeker.maximumValue = Float(self.audioPlayer.duration)
+                self.setDuration()
+                self.updateTime()
+                                 }
+                                 catch{
+                                         print(error)
+                                 }
+                self.audioPlayerView.isHidden = false
+                self.audioPath = "\(self.getFileUrl())"
+                //print(note.audiopath)
+                
+            }
         //_ = self.navigationController?.popViewController(animated: true)
         })
         present(ac, animated: true)

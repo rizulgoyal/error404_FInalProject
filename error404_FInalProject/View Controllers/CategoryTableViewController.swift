@@ -26,7 +26,7 @@ class CategoryTableViewController: UITableViewController {
         }
         else
         {
-            categoryArray = ["Home","Work",""]
+            categoryArray = ["Home","Work"]
             userDefaults.set(categoryArray, forKey: "category")
             userDefaults.synchronize()
             print("dont exist")
@@ -75,14 +75,27 @@ class CategoryTableViewController: UITableViewController {
     {
         let action = UIContextualAction(
                          style: .normal,
-                         title: "Change Folder",
+                         title: "Delete",
                          handler: { (action, view, completion) in
-                            self.categoryArray.remove(at: indexPath.row)
-                            let userDefaults = UserDefaults.standard
-                            userDefaults.removeObject(forKey: "category")
-                            userDefaults.set(self.categoryArray, forKey: "category")
-                            tableView.deleteRows(at: [indexPath], with: .fade)
-                            tableView.reloadData()
+                            
+                            
+                            let alert = UIAlertController(title: "Delete Folder", message: "All the Notes will be Deleted as Well,Are You Sure You Want to Delete the folder ?", preferredStyle: .alert)
+                                   let okAction = UIAlertAction(title: "Delete", style: .destructive){
+                                       UIAlertAction in
+                                       self.categoryArray.remove(at: indexPath.row)
+                                       let userDefaults = UserDefaults.standard
+                                       userDefaults.removeObject(forKey: "category")
+                                       userDefaults.set(self.categoryArray, forKey: "category")
+                                       tableView.deleteRows(at: [indexPath], with: .fade)
+                                       tableView.reloadData()
+                                   }
+                                   alert.addAction(okAction)
+                                   let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                                          alert.addAction(cancelAction)
+                                          
+                                          self.present(alert, animated: true, completion: nil)
+                            
+                            
                         
                        
                                       
@@ -109,9 +122,54 @@ class CategoryTableViewController: UITableViewController {
         navigationController?.pushViewController(newVC, animated: true)
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 60
     }
     
+    
+    @IBAction func addFolderBtn(_ sender: Any)
+    {
+        let alert = UIAlertController(title: "Add New Folder", message: "Type the name of mnew folder", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Add Folder", style: .default){
+            UIAlertAction in
+            let newcategory = alert.textFields![0].text
+            self.categoryArray.append(newcategory!)
+             let userDefaults = UserDefaults.standard
+
+             userDefaults.removeObject(forKey: "category")
+            userDefaults.set(self.categoryArray, forKey: "category")
+            self.categoryArray.removeAll()
+            self.categoryArray = userDefaults.array(forKey: "category") as! [String]
+            self.tableView.reloadData()
+            
+        }
+        alert.addAction(okAction)
+        okAction.isEnabled = false
+       alert.addTextField(configurationHandler: {(textField: UITextField!) in
+                                textField.placeholder = "Folder Name"
+        textField.textAlignment = .center
+        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main, using:
+                                    {_ in
+                                        let textCount = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
+                                        let textIsNotEmpty = textCount > 0
+                                        // If the text contains non whitespace characters, enable the OK Button
+                                        okAction.isEnabled = textIsNotEmpty
+                                })
+                            })
+        
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    func okButtonTapped()
+    {
+        
+    }
     
     func loadFromCoreData(category : String) -> Int
          {

@@ -100,7 +100,7 @@ class ChooseCategoryTableViewController: UITableViewController {
                loadFromCoreData()
                notesArray.append(note1)
                saveToCoreData()
-        navigationController?.popViewController(animated: true)
+        navigationController?.popToRootViewController(animated:true)
     }
     
     func getDocumentsDirectory() -> URL
