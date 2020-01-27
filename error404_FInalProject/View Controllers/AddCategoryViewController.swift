@@ -15,18 +15,22 @@ class AddCategoryViewController: UIViewController {
 
     @IBAction func buttonCategory(_ sender: UIButton) {
         
-        let newcategory = labelCategory.text
-        categoryArray.append(newcategory!)
-        let userDefaults = UserDefaults.standard
-
-        userDefaults.removeObject(forKey: "category")
-       userDefaults.set(categoryArray, forKey: "category")
         
-        self.navigationController?.popViewController(animated: true)
         
         
     }
     
+    @IBAction func saveBtn(_ sender: Any)
+    {
+        let newcategory = labelCategory.text
+         categoryArray.append(newcategory!)
+         let userDefaults = UserDefaults.standard
+
+         userDefaults.removeObject(forKey: "category")
+        userDefaults.set(categoryArray, forKey: "category")
+         
+         self.navigationController?.popViewController(animated: true)
+    }
     @IBOutlet var labelCategory: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()

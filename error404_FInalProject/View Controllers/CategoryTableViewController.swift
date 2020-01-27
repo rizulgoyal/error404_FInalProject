@@ -65,12 +65,39 @@ class CategoryTableViewController: UITableViewController {
         
         let number = loadFromCoreData(category: categoryArray[indexPath.row])
         cell.countlabel.text = String(number)
-        cell.contentView.addShadow1()
+        cell.contentView.addShadow()
         cell.layer.borderColor = UIColor.white.cgColor
         cell.layer.borderWidth = 6
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        let action = UIContextualAction(
+                         style: .normal,
+                         title: "Change Folder",
+                         handler: { (action, view, completion) in
+                            self.categoryArray.remove(at: indexPath.row)
+                            let userDefaults = UserDefaults.standard
+                            userDefaults.removeObject(forKey: "category")
+                            userDefaults.set(self.categoryArray, forKey: "category")
+                            tableView.deleteRows(at: [indexPath], with: .fade)
+                            tableView.reloadData()
+                        
+                       
+                                      
+        //
+        //                                  completion(true)
+                     })
+
+                  
+                action.backgroundColor = .red
+                 action.image = UIImage(systemName: "trash")
+        
+        let configuration = UISwipeActionsConfiguration(actions:  [action])
+        configuration.performsFirstActionWithFullSwipe = false
+        return configuration
+    }
 
     
     
@@ -192,11 +219,11 @@ extension UserDefaults {
 extension UIView {
 
     func addShadow1(){
-       self.layer.cornerRadius = 30.0
+       self.layer.cornerRadius = 20.0
        self.layer.shadowColor = UIColor.gray.cgColor
         //self.layer.borderColor = UIColor.black.cgColor
        self.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
-       self.layer.shadowRadius = 15.0
+       self.layer.shadowRadius = 10.0
        self.layer.shadowOpacity = 0.7
 
     }

@@ -9,13 +9,17 @@
 import UIKit
 import CoreData
 import AVFoundation
+import MediaPlayer
+import Photos
 
-class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
+class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
     
     var note = Note()
     var notesArray : [Note] = []
     var categoryPassed = ""
+    var imageData = Data()
+    var count = Int()
    
     //audio fucntionality
     var audioRecorder: AVAudioRecorder!
@@ -28,24 +32,28 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
     //audioplayer
     
     @IBOutlet var audioPlayerView: UIView!
-    
     @IBOutlet var audioPlay: UIButton!
+    @IBOutlet var seeker: UISlider!
+    @IBOutlet var time: UILabel!
+    @IBOutlet var durationLabel: UILabel!
+    var timer : Timer?
     
-    @IBOutlet var recordingTitle: UILabel!
     
-    
+    @IBOutlet var removeImgBtn: UIButton!
     
     @IBOutlet var recordBtn: UIButton!
     @IBOutlet var textTitle: UITextView!
-    @IBOutlet weak var imageLabel: UILabel!
+    
+    @IBOutlet var cameraBtn: UIButton!
     @IBOutlet var imageTask: UIImageView!
     @IBOutlet var labelDesc: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        count = 0
+        audioPlayerView.addShadow1()
         textTitle.delegate = self
         textTitle.textContainer.maximumNumberOfLines = 1
-        //labelDesc.becomeFirstResponder()
-        //textTitle.textContainer.lineBreakMode  = .byTruncatingTail
+        
         
         //code after adding audio
         if note.audiopath.elementsEqual("")
@@ -64,17 +72,30 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
         labelDesc.text = note.desc
         let imgData = note.imageData
         imageTask.isHidden = true
-        imageLabel.isHidden  = true
+        removeImgBtn.isHidden = true
         if !(imgData.isEmpty)
         {
             imageTask.isHidden = false
-            imageLabel.isHidden  = false
+            removeImgBtn.isHidden = false
             
             let img = UIImage(data: imgData)
             imageTask.image = img
         }
         //textTitle.text = note.category
         
+        //check if the audio for note exists or not
+        do{
+                          
+            audioPlayer = try AVAudioPlayer(contentsOf: getFileUrl())
+            var updateTimer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
+                              timer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateSlider), userInfo: nil, repeats: true)
+            seeker.maximumValue = Float(audioPlayer.duration)
+            setDuration()
+            updateTime()
+            }
+        catch{
+                print(error)
+            }
 
         // Do any additional setup after loading the view.
     }
@@ -97,11 +118,23 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
         
     }
     
+    @IBAction func saveBtn(_ sender: Any)
+    {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
+    @IBAction func deleteBtn(_ sender: Any)
+    {
+        deleteData()
+        count = 1
+        navigationController?.popViewController(animated: true)
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         
         print(categoryPassed)
-        
+        if count == 1{
         let title = textTitle.text
         let desc = labelDesc.text
         let date = note.createdAt
@@ -113,7 +146,12 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
         note1.title = title!
         note1.desc = desc!
         note1.createdAt = date
-        note1.imageData = image
+        if imageTask.isHidden
+        {
+            note1.imageData.removeAll()
+        }else{
+            note1.imageData = note.imageData
+        }
         let filemanager = FileManager.default
         if filemanager.fileExists(atPath:getFileUrl().path)
         {
@@ -130,7 +168,13 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
                 }
             
         }
+        if audioPlayerView.isHidden
+        {
+            note1.audiopath = ""
+        }else
+        {
         note1.audiopath = note.audiopath
+        }
         print(note1.audiopath)
         note1.category = categoryPassed
         note1.lat = lat
@@ -143,39 +187,97 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
         loadFromCoreData()
         notesArray.append(note1)
         saveToCoreData()
-        
+        }
         
         
         
     }
     
+    //image part
+    
+    @IBAction func removeImageBtn(_ sender: Any)
+    {
+        imageTask.isHidden = true
+        removeImgBtn.isHidden = true
+    }
+    
+    
+    
+    
+    @IBAction func cameraBtn(_ sender: Any)
+    {
+        openDialog()
+    }
+    
+    func openDialog(){
+        let alert = UIAlertController(title: "NoteIt!", message: "Pick image from", preferredStyle: .alert)
+
+        
+
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { action in
+
+              if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                        var imagePicker = UIImagePickerController()
+                        imagePicker.delegate = self
+                        imagePicker.sourceType = .camera;
+                        imagePicker.allowsEditing = false
+                     self.present(imagePicker, animated: true, completion: nil)
+                    }
+        }))
+        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { action in
+         
+           
+                  if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                      var imagePicker = UIImagePickerController()
+                      imagePicker.delegate = self
+                      imagePicker.sourceType = .photoLibrary;
+                      imagePicker.allowsEditing = true
+                      self.present(imagePicker, animated: true, completion: nil)
+                  }
+              
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+             self.imageTask.isHidden =  false
+             self.imageTask.image = image
+            self.removeImgBtn.isHidden = false
+             //self.AddPhotoBTN.isHidden =  true
+            note.imageData = image.pngData()!
+         }
+         self.dismiss(animated: true, completion: nil)
+     }
+
+    
+
+     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+         self.dismiss(animated: true, completion: nil)
+     }
+    
+    
+    
+    
     
     @IBAction func startRecording(_ sender: Any)
     {
-        if(isRecording)
-        {
-            finishAudioRecording(success: true)
-        //record_btn_ref.setTitle("Record", for: .normal)
-            //play_btn_ref.isEnabled = true
-            isRecording = false
-            audioPlayerView.isHidden = false
-            note.audiopath = "\(getFileUrl())"
-            //print(note.audiopath)
-            
-        }
-        else
+
+        if(isRecording == false)
         {
             check_record_permission()
             setup_recorder()
 
             audioRecorder.record()
-            display_alert(msg_title: "recording", msg_desc: "app is now recording audio", action_title: "ok")
+            
             
             //meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
             //record_btn_ref.setTitle("Stop", for: .normal)
             //play_btn_ref.isEnabled = false
             isRecording = true
+        display_alert1(msg_title: "recording", msg_desc: "app is now recording audio", action_title: "stop")
         }
+        
     }
     func finishAudioRecording(success: Bool)
     {
@@ -269,6 +371,7 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
         if(isPlaying)
                {
                    audioPlayer.stop()
+                updateTime()
                    //record_btn_ref.isEnabled = true
                    //play_btn_ref.setTitle("Play", for: .normal)
                    isPlaying = false
@@ -281,6 +384,7 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
                        //play_btn_ref.setTitle("pause", for: .normal)
                        prepare_play()
                        audioPlayer.play()
+                    updateTime()
                        isPlaying = true
                    }
                    else
@@ -303,9 +407,50 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
         }
     }
    
+    @objc func updateSlider() {
+    seeker.value = Float(audioPlayer.currentTime)
+    }
+    
+    @objc func updateTime() {
+        let currentTime = Int(audioPlayer.currentTime)
+        let duration = Int(audioPlayer.duration)
+        let total = currentTime - duration
+        _ = String(total)
+
+        let minutes = currentTime/60
+        var seconds = currentTime - minutes / 60
+        if minutes > 0 {
+           seconds = seconds - 60 * minutes
+            
+        }
+        
+        time.text = NSString(format: "%02d:%02d", minutes,seconds) as String
+    }
+    func setDuration()
+    {
+        let duration = Int(audioPlayer.duration)
+        let minutes = duration/60
+        var seconds = duration - minutes / 60
+        if minutes > 0 {
+           seconds = seconds - 60 * minutes
+        }
+        durationLabel.text = NSString(format: "%02d:%02d", minutes,seconds) as String
+        
+    }
+    
+    @IBAction func removeRecording(_ sender: Any)
+    {
+        audioPlayerView.isHidden = true
+    }
     
     
-    
+    @IBAction func scrubAudio(_ sender: Any) {
+        seeker.maximumValue = Float(audioPlayer.duration)
+        audioPlayer.stop()
+        audioPlayer.currentTime = TimeInterval(seeker.value)
+        audioPlayer.prepareToPlay()
+        audioPlayer.play()
+    }
     
     
     
@@ -468,6 +613,28 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
         ac.addAction(UIAlertAction(title: action_title, style: .default)
         {
             (result : UIAlertAction) -> Void in
+        //_ = self.navigationController?.popViewController(animated: true)
+        })
+        present(ac, animated: true)
+    }
+    func display_alert1(msg_title : String , msg_desc : String ,action_title : String)
+    {
+        let ac = UIAlertController(title: msg_title, message: msg_desc, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: action_title, style: .destructive)
+        {
+            (result : UIAlertAction) -> Void in
+            if(self.isRecording)
+            {
+                self.finishAudioRecording(success: true)
+            //record_btn_ref.setTitle("Record", for: .normal)
+                //play_btn_ref.isEnabled = true
+                self.isRecording = false
+               
+                self.audioPlayerView.isHidden = false
+                self.note.audiopath = "\(self.getFileUrl())"
+                //print(note.audiopath)
+                
+            }
         //_ = self.navigationController?.popViewController(animated: true)
         })
         present(ac, animated: true)

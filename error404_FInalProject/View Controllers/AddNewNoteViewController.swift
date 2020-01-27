@@ -11,24 +11,35 @@ import CoreData
 import MapKit
 import CoreLocation
 import Photos
+import AVFoundation
+import MediaPlayer
 
 
-class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UNUserNotificationCenterDelegate {
+class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UNUserNotificationCenterDelegate,AVAudioRecorderDelegate, AVAudioPlayerDelegate {
 
 
-   
+   //audio fucntionality
+   var audioRecorder: AVAudioRecorder!
+   var audioPlayer : AVAudioPlayer!
+   var meterTimer:Timer!
+   var isAudioRecordingGranted: Bool!
+   var isRecording = false
+   var isPlaying = false
+    @IBOutlet var durationLabel: UILabel!
+    
+    var timer: Timer?
+    @IBOutlet var time: UILabel!
+    @IBOutlet var seeker: UISlider!
+    
+    @IBOutlet var audioPlayerView: UIView!
     @IBOutlet var titleText: UITextView!
-    
     @IBOutlet weak var descText: UITextView!
-    
     @IBOutlet weak var selectedImage: UIImageView!
-    
-
     @IBOutlet var BtnCamera: UIButton!
-    
     @IBOutlet weak var removeImageBtn: UIButton!
     
     var imageData = Data()
+    var audioPath = ""
     
     var locationManager = CLLocationManager()
     
@@ -38,6 +49,8 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
     var noteArray = [Note]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        audioPlayerView.isHidden = true
         titleText.delegate = self
         titleText.text = "Enter Title"
         titleText.textColor = UIColor.lightGray
@@ -53,8 +66,52 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
          
         locationManager.startUpdatingLocation()
         
+        //audioplayer
+        audioPlayerView.addShadow()
+        
         // Do any additional setup after loading the view.
     }
+    
+    @IBAction func scrubAudio(_ sender: Any)
+    {
+        seeker.maximumValue = Float(audioPlayer.duration)
+        audioPlayer.stop()
+        audioPlayer.currentTime = TimeInterval(seeker.value)
+        audioPlayer.prepareToPlay()
+        audioPlayer.play()
+    }
+    
+    @objc func updateSlider() {
+    seeker.value = Float(audioPlayer.currentTime)
+    }
+    
+    @objc func updateTime() {
+        let currentTime = Int(audioPlayer.currentTime)
+        let duration = Int(audioPlayer.duration)
+        let total = currentTime - duration
+        _ = String(total)
+
+        let minutes = currentTime/60
+        var seconds = currentTime - minutes / 60
+        if minutes > 0 {
+           seconds = seconds - 60 * minutes
+            
+        }
+        
+        time.text = NSString(format: "%02d:%02d", minutes,seconds) as String
+    }
+    func setDuration()
+    {
+        let duration = Int(audioPlayer.duration)
+        let minutes = duration/60
+        var seconds = duration - minutes / 60
+        if minutes > 0 {
+           seconds = seconds - 60 * minutes
+        }
+        durationLabel.text = NSString(format: "%02d:%02d", minutes,seconds) as String
+        
+    }
+
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
               //grab user location
@@ -90,12 +147,20 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         {
         note.imageData = self.imageData
         }
-        
+        if audioPlayerView.isHidden == false
+        {
+        note.audiopath = audioPath
+        }
         print(imageData)
         noteArray.append(note)
         print(self.category)
         saveToCoreData()
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func deleteBtn(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+        
     }
     
     func saveToCoreData()
@@ -115,6 +180,7 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
             newTask.setValue(i.lat, forKey: "latitude")
             newTask.setValue(i.long, forKey: "longitude")
             newTask.setValue(i.imageData, forKey: "image")
+            newTask.setValue(i.audiopath, forKey: "audiopath")
 
         
         
@@ -170,13 +236,9 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
 
     @IBAction func cameraBtn(_ sender: Any)
     {
-
         openDialog()
     }
     
-    @IBAction func recordBtn(_ sender: Any)
-    {
-    }
     
     
     
@@ -220,7 +282,196 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                self.present(alert, animated: true)
            }
-        
     
+    
+    @IBAction func recordBtn(_ sender: Any)
+    {
+        if(isRecording)
+        {
+            finishAudioRecording(success: true)
+        //record_btn_ref.setTitle("Record", for: .normal)
+            //play_btn_ref.isEnabled = true
+            isRecording = false
+            
+            do{
+                   
+                       audioPlayer = try AVAudioPlayer(contentsOf: getFileUrl())
+                       var updateTimer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
+                       timer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateSlider), userInfo: nil, repeats: true)
+                       seeker.maximumValue = Float(audioPlayer.duration)
+                       setDuration()
+                       updateTime()
+                   }
+                   catch{
+                           print(error)
+                   }
+            audioPlayerView.isHidden = false
+            //print(note.audiopath)
+            
+        }
+        else
+        {
+            check_record_permission()
+            setup_recorder()
+
+            audioRecorder.record()
+            display_alert(msg_title: "recording", msg_desc: "app is now recording audio", action_title: "ok")
+            
+            //meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
+            //record_btn_ref.setTitle("Stop", for: .normal)
+            //play_btn_ref.isEnabled = false
+            isRecording = true
+        }
+    }
+    
+    @IBAction func playBtn(_ sender: Any)
+    {
+        if(isPlaying)
+        {
+            audioPlayer.stop()
+            updateTime()
+            //record_btn_ref.isEnabled = true
+            //play_btn_ref.setTitle("Play", for: .normal)
+            isPlaying = false
+        }
+        else
+        {
+            if FileManager.default.fileExists(atPath: getFileUrl().path)
+            {
+                //record_btn_ref.isEnabled = false
+                //play_btn_ref.setTitle("pause", for: .normal)
+                prepare_play()
+                audioPlayer.play()
+                updateTime()
+                isPlaying = true
+            }
+            else
+            {
+                display_alert(msg_title: "Error", msg_desc: "Audio file is missing.", action_title: "OK")
+            }
+        }
+    }
+    
+    @IBAction func removeRecording(_ sender: Any)
+    {
+        audioPlayerView.isHidden = true
+        
+    }
+    
+    
+    func prepare_play()
+    {
+        do
+        {
+            audioPlayer = try AVAudioPlayer(contentsOf: getFileUrl())
+            
+            audioPlayer.delegate = self
+            audioPlayer.prepareToPlay()
+            
+        }
+        catch{
+            print("Error")
+        }
+    }
+    
+    func finishAudioRecording(success: Bool)
+       {
+           if success
+           {
+               audioRecorder.stop()
+               audioRecorder = nil
+               //meterTimer.invalidate()
+               print("recorded successfully.")
+            audioPath = getFileUrl().path
+               
+           }
+           else
+           {
+               display_alert(msg_title: "Error", msg_desc: "Recording failed.", action_title: "OK")
+           }
+       }
+       
+       func check_record_permission()
+       {
+           switch AVAudioSession.sharedInstance().recordPermission {
+           case AVAudioSessionRecordPermission.granted:
+               isAudioRecordingGranted = true
+               break
+           case AVAudioSessionRecordPermission.denied:
+               isAudioRecordingGranted = false
+               break
+           case AVAudioSessionRecordPermission.undetermined:
+               AVAudioSession.sharedInstance().requestRecordPermission({ (allowed) in
+                       if allowed {
+                           self.isAudioRecordingGranted = true
+                       } else {
+                           self.isAudioRecordingGranted = false
+                       }
+               })
+               break
+           default:
+               break
+           }
+       }
+       
+       func getDocumentsDirectory() -> URL
+       {
+           let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+           let documentsDirectory = paths[0]
+           return documentsDirectory
+       }
+
+       func getFileUrl() -> URL
+       {
+           let name = titleText.text + descText.text
+           let filename = name
+           let filePath = getDocumentsDirectory().appendingPathComponent(filename)
+           print(filePath)
+       return filePath
+       }
+       
+       func setup_recorder()
+       {
+           if isAudioRecordingGranted
+           {
+               let session = AVAudioSession.sharedInstance()
+               do
+               {
+                   try session.setCategory(AVAudioSession.Category.playAndRecord)
+                   try session.setActive(true)
+                   let settings = [
+                       AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                       AVSampleRateKey: 44100,
+                       AVNumberOfChannelsKey: 2,
+                       AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue
+                   ]
+                   audioRecorder = try AVAudioRecorder(url: getFileUrl(), settings: settings)
+                   audioRecorder.delegate = self
+                   audioRecorder.isMeteringEnabled = true
+                   audioRecorder.prepareToRecord()
+               }
+               catch let error {
+                   display_alert(msg_title: "Error", msg_desc: error.localizedDescription, action_title: "OK")
+                   
+               }
+           }
+           else
+           {
+               display_alert(msg_title: "Error", msg_desc: "Don't have access to use your microphone.", action_title: "OK")
+           }
+       }
+    
+    
+        
+    func display_alert(msg_title : String , msg_desc : String ,action_title : String)
+    {
+        let ac = UIAlertController(title: msg_title, message: msg_desc, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: action_title, style: .default)
+        {
+            (result : UIAlertAction) -> Void in
+        //_ = self.navigationController?.popViewController(animated: true)
+        })
+        present(ac, animated: true)
+    }
 
 }
