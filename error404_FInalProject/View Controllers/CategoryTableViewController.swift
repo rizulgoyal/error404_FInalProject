@@ -128,7 +128,7 @@ class CategoryTableViewController: UITableViewController {
     
     @IBAction func addFolderBtn(_ sender: Any)
     {
-        let alert = UIAlertController(title: "Add New Folder", message: "Type the name of mnew folder", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add New Folder", message: "Type the name of new folder", preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "Add Folder", style: .default){
             UIAlertAction in
