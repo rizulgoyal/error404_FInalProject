@@ -33,6 +33,31 @@ class mapLocationViewController: UIViewController {
         super.viewDidLoad()
         self.mapView.delegate = self
         
+        
+        // define lat and long
+               
+               let latitude: CLLocationDegrees = 43.64
+               let longitude: CLLocationDegrees = -79.38
+               
+               // define delta lat and long
+               
+               let latDelta : CLLocationDegrees = 0.2
+               let longDelta : CLLocationDegrees = 0.2
+               //defione span
+               let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta)
+               
+               // define location
+               
+           let location1 = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+               
+               // define the region
+               
+               let region = MKCoordinateRegion(center: location1, span: span)
+               
+               // set the region on the map
+               mapView.setRegion(region, animated: true)
+               
+        
         navigationController?.navigationItem.largeTitleDisplayMode = .never
         let coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
              let annotation = MKPointAnnotation()
@@ -50,33 +75,19 @@ class mapLocationViewController: UIViewController {
                            else
                            {
                                if let placemark = placemarks?[0]{
-               //                    if placemark.subThoroughfare != nil{
-               //                        address = address + placemark.subThoroughfare! + " "
-               //                    }
-               //
-               //                    if placemark.thoroughfare != nil{
-               //                        address = address + placemark.thoroughfare! + " "
-               //                    }
-               //
-               //                    if placemark.subLocality != nil{
-               //                        address = address + placemark.subLocality!  + " "
-               //                    }
-               //
                                    if placemark.subAdministrativeArea != nil{
-                                    //   annotation.title = placemark.subAdministrativeArea
+                                  
 
                                        address = address + placemark.subAdministrativeArea! + " "
                                    }
                                    
-               //                    if placemark.postalCode != nil{
-               //                        address = address + placemark.postalCode! + " "
-               //                    }
+               
                                    
                                    if placemark.country != nil{
                                        address = address + placemark.country! + " "
                                    }
                                  
-                                 //  self.addressm = address
+                                
                                 annotation.title = address
               
                              }
