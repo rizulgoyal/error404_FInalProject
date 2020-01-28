@@ -67,6 +67,7 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         
         //audioplayer
         audioPlayerView.addShadow()
+        navigationController?.navigationItem.largeTitleDisplayMode = .never
         
         // Do any additional setup after loading the view.
     }

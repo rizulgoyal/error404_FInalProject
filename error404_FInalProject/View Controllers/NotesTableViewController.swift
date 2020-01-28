@@ -12,9 +12,10 @@ import MapKit
 import CoreLocation
 
 class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLocationManagerDelegate{
-    @IBOutlet var contentView: UIView!
+  
     
     @IBOutlet var searchNote: UISearchBar!
+    let searchController = UISearchController(searchResultsController: nil)
     var category = ""
     var notesArray = [Note]()
     var searchArray = [Note]()
@@ -30,8 +31,12 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
 //        clearCoreData()
 //        notesArray.removeAll()
         loadFromCoreData()
-    
         
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Notes"
+        self.navigationItem.searchController = searchController
+        definesPresentationContext = true
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -166,7 +171,14 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sb = UIStoryboard(name: "Main", bundle: nil)
         let newVC = sb.instantiateViewController(identifier: "noteDetail") as! DetailTaskViewController
-        let currnote =  notesArray[indexPath.row]
+        var currnote = Note()
+        if isSearch
+        {
+        currnote =  searchArray[indexPath.row]
+        }
+        else{
+        currnote = notesArray[indexPath.row]
+        }
 
         newVC.note = currnote
         newVC.categoryPassed = self.category
@@ -314,6 +326,10 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
              return configuration
       }
       
+    var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+
      
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
          {
@@ -337,8 +353,6 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
          {
              return true;
          }
-      
-      
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let newVC = segue.destination as? AddNewNoteViewController
@@ -439,4 +453,9 @@ extension UIView {
        self.layer.shadowOpacity = 0.7
 
     }
+}
+extension NotesTableViewController: UISearchResultsUpdating {
+  func updateSearchResults(for searchController: UISearchController) {
+    // TODO
+  }
 }

@@ -97,6 +97,7 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
                 print(error)
             }
 
+        navigationController?.navigationItem.largeTitleDisplayMode = .never
         // Do any additional setup after loading the view.
     }
     
