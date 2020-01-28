@@ -463,14 +463,6 @@
                                     <action selector="deleteBtn:" destination="uWa-zx-a0e" eventType="touchUpInside" id="8VX-ka-fY3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQM-TX-p3Y">
-                                <rect key="frame" x="374" y="616" width="28" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="xmark.circle" catalog="system"/>
-                                <connections>
-                                    <action selector="removeImageBtn:" destination="uWa-zx-a0e" eventType="touchUpInside" id="0gD-LX-kEE"/>
-                                </connections>
-                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="title" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WvL-Gu-gbL">
                                 <rect key="frame" x="20" y="106" width="374" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -524,6 +516,14 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQM-TX-p3Y">
+                                <rect key="frame" x="379" y="582" width="28" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="xmark.circle" catalog="system"/>
+                                <connections>
+                                    <action selector="removeImageBtn:" destination="uWa-zx-a0e" eventType="touchUpInside" id="0gD-LX-kEE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <viewLayoutGuide key="safeArea" id="lbl-Z2-UFC"/>

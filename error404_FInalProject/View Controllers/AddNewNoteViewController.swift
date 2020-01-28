@@ -245,7 +245,9 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
     //record  Audio fucntionality
     @IBAction func recordBtn(_ sender: Any)
     {
-        if(isRecording == false)
+        if audioPlayerView.isHidden
+        {
+            if(isRecording == false)
         {
             let recordingSession = AVAudioSession.sharedInstance()
             
@@ -266,6 +268,38 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
             }
             
             
+        }
+        }
+        else
+        {
+            let alert = UIAlertController(title: "Delete Audio?", message: "Do you want to delete the already added audio?", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Delete", style: .destructive){
+                UIAlertAction in
+                if(self.isRecording == false)
+                {
+                    let recordingSession = AVAudioSession.sharedInstance()
+                    
+                    do {
+                        try recordingSession.setCategory(.playAndRecord, mode: .default)
+                        try recordingSession.setActive(true)
+                        recordingSession.requestRecordPermission() { [unowned self] allowed in
+                            DispatchQueue.main.async {
+                                if allowed {
+                                    self.performRecord()
+                                } else {
+                                    // failed to record!
+                                }
+                            }
+                        }
+                    } catch {
+                        // failed to record!
+                    }
+                    
+                    
+                }
+            }
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
         }
     }
     

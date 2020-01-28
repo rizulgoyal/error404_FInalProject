@@ -55,10 +55,6 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
         textTitle.delegate = self
         textTitle.textContainer.maximumNumberOfLines = 1
         
-        
-        
-        
-        
         //displaying data
         textTitle.text = note.title
         labelDesc.text = note.desc
@@ -245,7 +241,22 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
     
     @IBAction func cameraBtn(_ sender: Any)
     {
+        if imageTask.isHidden
+        {
         openDialog()
+        }
+        else
+        {
+            let alert = UIAlertController(title: "Replace Image", message: "are you sure you want to replace the image", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                
+                self.openDialog()
+            }))
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
+            
+        }
     }
     
     func openDialog(){
@@ -302,6 +313,9 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
     
     @IBAction func startRecording(_ sender: Any)
     {
+        
+        if audioPlayerView.isHidden
+        {
         let recordingSession = AVAudioSession.sharedInstance()
         
         do {
@@ -318,6 +332,34 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
             }
         } catch {
             // failed to record!
+        }
+        }
+        else
+        {
+            let alert = UIAlertController(title: "Replace Audio", message: "Are you sure you want to replace the audio", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                let recordingSession = AVAudioSession.sharedInstance()
+                       
+                       do {
+                           try recordingSession.setCategory(.playAndRecord, mode: .default)
+                           try recordingSession.setActive(true)
+                           recordingSession.requestRecordPermission() { [unowned self] allowed in
+                               DispatchQueue.main.async {
+                                   if allowed {
+                                       self.performRecord()
+                                   } else {
+                                       // failed to record!
+                                   }
+                               }
+                           }
+                       } catch {
+                           // failed to record!
+                       }
+               
+            }))
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
