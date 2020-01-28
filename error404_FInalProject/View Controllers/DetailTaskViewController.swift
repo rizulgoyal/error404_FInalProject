@@ -49,8 +49,10 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
     @IBOutlet var labelDesc: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        //back functionality
         count = 0
-        audioPlayerView.addShadow1()
+        
+        
         textTitle.delegate = self
         textTitle.textContainer.maximumNumberOfLines = 1
         
@@ -66,8 +68,7 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
         }
         
         
-        
-        
+        //displaying data
         textTitle.text = note.title
         labelDesc.text = note.desc
         let imgData = note.imageData
@@ -81,9 +82,11 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
             let img = UIImage(data: imgData)
             imageTask.image = img
         }
-        //textTitle.text = note.category
         
-        //check if the audio for note exists or not
+        
+        
+        
+        //code for audio player
         do{
                           
             audioPlayer = try AVAudioPlayer(contentsOf: getFileUrl())
@@ -96,6 +99,7 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
         catch{
                 print(error)
             }
+        audioPlayerView.addShadow1()
 
         navigationController?.navigationItem.largeTitleDisplayMode = .never
         
@@ -103,6 +107,7 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
         tapGestureReconizer.numberOfTouchesRequired = 1
         view.addGestureRecognizer(tapGestureReconizer)
         // Do any additional setup after loading the view.
+        
     }
     @objc func tap(sender: UITapGestureRecognizer) {
      view.endEditing(true)
