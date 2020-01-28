@@ -273,14 +273,6 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rjM-v7-37H">
-                                <rect key="frame" x="380" y="582" width="20" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="xmark.circle" catalog="system"/>
-                                <connections>
-                                    <action selector="removeImageBtn:" destination="dIl-Cx-m8B" eventType="touchUpInside" id="vUK-kX-ede"/>
-                                </connections>
-                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="title" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cd8-9c-VPj">
                                 <rect key="frame" x="20" y="103" width="374" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -299,6 +291,14 @@
                                 </state>
                                 <connections>
                                     <segue destination="bsY-Ld-JTB" kind="show" id="hcy-OE-3PK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rjM-v7-37H">
+                                <rect key="frame" x="380" y="551" width="20" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="xmark.circle" catalog="system"/>
+                                <connections>
+                                    <action selector="removeImageBtn:" destination="dIl-Cx-m8B" eventType="touchUpInside" id="vUK-kX-ede"/>
                                 </connections>
                             </button>
                         </subviews>
