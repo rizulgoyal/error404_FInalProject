@@ -13,6 +13,7 @@ import CoreLocation
 
 class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLocationManagerDelegate{
   
+    @IBOutlet var sortBtn: UIButton!
     
     @IBOutlet var searchNote: UISearchBar!
     let searchController = UISearchController(searchResultsController: nil)
@@ -329,6 +330,31 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
     var isSearchBarEmpty: Bool {
       return searchController.searchBar.text?.isEmpty ?? true
     }
+    @IBAction func sortBy(_ sender: Any)
+       {
+           let alert = UIAlertController(title: "Sort Table", message: "Please Select one option", preferredStyle: .alert)
+
+           alert.addAction(UIAlertAction(title: "By Title", style: .default, handler: {
+               action in
+              
+               self.notesArray.sort(by:  {$0.title.lowercased() < $1.title.lowercased()} )
+            self.sortBtn.setTitle("Sort By Title", for: .normal)
+            self.tableView.reloadData()
+               
+           }))
+           
+             alert.addAction(UIAlertAction(title: "By Date", style: .default, handler: {
+                 action in
+                
+                
+                self.notesArray.sort(by: {$0.createdAt < $1.createdAt} )
+                self.sortBtn.setTitle("Sort By Date", for: .normal)
+              self.tableView.reloadData()
+                 
+             }))
+                                 
+                                 self.present(alert, animated: true)
+       }
     
     func searchResult(searchText : String)
     {
