@@ -72,45 +72,7 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func scrubAudio(_ sender: Any)
-    {
-        seeker.maximumValue = Float(audioPlayer.duration)
-        audioPlayer.stop()
-        audioPlayer.currentTime = TimeInterval(seeker.value)
-        audioPlayer.prepareToPlay()
-        audioPlayer.play()
-    }
     
-    @objc func updateSlider() {
-        seeker.value = Float(audioPlayer.currentTime)
-    }
-    
-    @objc func updateTime() {
-        let currentTime = Int(audioPlayer.currentTime)
-        let duration = Int(audioPlayer.duration)
-        let total = currentTime - duration
-        _ = String(total)
-        
-        let minutes = currentTime/60
-        var seconds = currentTime - minutes / 60
-        if minutes > 0 {
-            seconds = seconds - 60 * minutes
-            
-        }
-        
-        time.text = NSString(format: "%02d:%02d", minutes,seconds) as String
-    }
-    func setDuration()
-    {
-        let duration = Int(audioPlayer.duration)
-        let minutes = duration/60
-        var seconds = duration - minutes / 60
-        if minutes > 0 {
-            seconds = seconds - 60 * minutes
-        }
-        durationLabel.text = NSString(format: "%02d:%02d", minutes,seconds) as String
-        
-    }
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -158,11 +120,14 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         self.navigationController?.popViewController(animated: true)
     }
     
+    
     @IBAction func deleteBtn(_ sender: Any) {
         navigationController?.popViewController(animated: true)
         
     }
     
+    
+    //save to core data
     func saveToCoreData()
     {
         //deleteData()
@@ -195,55 +160,19 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         }
         
     }
-    
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        
-        if descText.textColor == UIColor.lightGray {
-            descText.text = ""
-            descText.textColor = UIColor.black
-        }
-        if titleText.textColor == UIColor.lightGray {
-            titleText.text = ""
-            titleText.textColor = UIColor.black
-        }
-    }
-    
-    
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.selectedImage.isHidden =  false
-            self.selectedImage.image = image
-            self.removeImageBtn.isHidden =  false
-            //self.AddPhotoBTN.isHidden =  true
-            imageData = image.pngData()!
-        }
-        self.dismiss(animated: true, completion: nil)
-    }
+   
     
     
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func removeImageBtn(_ sender: Any)
-    {
-        
-        let alert = UIAlertController(title: "Delete Image", message: "Are You Sure You Want to Delete the Image form the Note?", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Delete", style: .destructive){
-            UIAlertAction in
-            self.selectedImage.isHidden = true
-            self.removeImageBtn.isHidden = true
-            self.imageData = Data()
-        }
-        alert.addAction(okAction)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
-        
-        self.present(alert, animated: true, completion: nil)
-    }
     
     
+    
+  
+    
+    
+    
+    //image functionality
+
     @IBAction func cameraBtn(_ sender: Any)
     {
         openDialog()
@@ -280,7 +209,40 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         self.present(alert, animated: true)
     }
     
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.selectedImage.isHidden =  false
+            self.selectedImage.image = image
+            self.removeImageBtn.isHidden =  false
+            //self.AddPhotoBTN.isHidden =  true
+            imageData = image.pngData()!
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
     
+    @IBAction func removeImageBtn(_ sender: Any)
+    {
+        
+        let alert = UIAlertController(title: "Delete Image", message: "Are You Sure You Want to Delete the Image form the Note?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Delete", style: .destructive){
+            UIAlertAction in
+            self.selectedImage.isHidden = true
+            self.removeImageBtn.isHidden = true
+            self.imageData = Data()
+        }
+        alert.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    //record  Audio fucntionality
     @IBAction func recordBtn(_ sender: Any)
     {
         if(isRecording == false)
@@ -315,88 +277,8 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         {
             audioRecorder.record()
         }
-        
-        //meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
-        //record_btn_ref.setTitle("Stop", for: .normal)
-        //play_btn_ref.isEnabled = false
         isRecording = true
         display_alert1(msg_title: "recording", msg_desc: "app is now recording audio", action_title: "Stop")
-    }
-    
-    @IBAction func playBtn(_ sender: Any)
-    {
-        if(isPlaying)
-        {
-            audioPlayer.stop()
-            updateTime()
-            //record_btn_ref.isEnabled = true
-            //play_btn_ref.setTitle("Play", for: .normal)
-            isPlaying = false
-        }
-        else
-        {
-            if FileManager.default.fileExists(atPath: getFileUrl().path)
-            {
-                //record_btn_ref.isEnabled = false
-                //play_btn_ref.setTitle("pause", for: .normal)
-                prepare_play()
-                audioPlayer.play()
-                updateTime()
-                isPlaying = true
-            }
-            else
-            {
-                display_alert(msg_title: "Error", msg_desc: "Audio file is missing.", action_title: "OK")
-            }
-        }
-    }
-    
-    @IBAction func removeRecording(_ sender: Any)
-    {
-        let alert = UIAlertController(title: "Delete Recording", message: "Are You Sure You Want to Delete the Audio Note?", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Delete", style: .destructive){
-            UIAlertAction in
-            self.audioPlayerView.isHidden = true
-        }
-        alert.addAction(okAction)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
-        
-        self.present(alert, animated: true, completion: nil)
-        
-    }
-    
-    
-    func prepare_play()
-    {
-        do
-        {
-            audioPlayer = try AVAudioPlayer(contentsOf: getFileUrl())
-            
-            audioPlayer.delegate = self
-            audioPlayer.prepareToPlay()
-            
-        }
-        catch{
-            print("Error")
-        }
-    }
-    
-    func finishAudioRecording(success: Bool)
-    {
-        if success
-        {
-            audioRecorder.stop()
-            audioRecorder = nil
-            //meterTimer.invalidate()
-            print("recorded successfully.")
-            audioPath = getFileUrl().path
-            
-        }
-        else
-        {
-            display_alert(msg_title: "Error", msg_desc: "Recording failed.", action_title: "OK")
-        }
     }
     
     func check_record_permission()
@@ -420,22 +302,6 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         default:
             break
         }
-    }
-    
-    func getDocumentsDirectory() -> URL
-    {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentsDirectory = paths[0]
-        return documentsDirectory
-    }
-    
-    func getFileUrl() -> URL
-    {
-        let name = titleText.text + descText.text
-        let filename = name
-        let filePath = getDocumentsDirectory().appendingPathComponent(filename)
-        print(filePath)
-        return filePath
     }
     
     func setup_recorder()
@@ -468,6 +334,148 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
             display_alert(msg_title: "Error", msg_desc: "Don't have access to use your microphone.", action_title: "OK")
         }
     }
+    
+    func finishAudioRecording(success: Bool)
+    {
+        if success
+        {
+            audioRecorder.stop()
+            audioRecorder = nil
+            //meterTimer.invalidate()
+            print("recorded successfully.")
+            audioPath = getFileUrl().path
+            
+        }
+        else
+        {
+            display_alert(msg_title: "Error", msg_desc: "Recording failed.", action_title: "OK")
+        }
+    }
+    
+    
+    @IBAction func removeRecording(_ sender: Any)
+    {
+        let alert = UIAlertController(title: "Delete Recording", message: "Are You Sure You Want to Delete the Audio Note?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Delete", style: .destructive){
+            UIAlertAction in
+            self.audioPlayerView.isHidden = true
+        }
+        alert.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    
+    
+    //audio player fuctionality
+    @IBAction func playBtn(_ sender: Any)
+    {
+        if(isPlaying)
+        {
+            audioPlayer.stop()
+            updateTime()
+            isPlaying = false
+        }
+        else
+        {
+            if FileManager.default.fileExists(atPath: getFileUrl().path)
+            {
+                prepare_play()
+                audioPlayer.play()
+                updateTime()
+                isPlaying = true
+            }
+            else
+            {
+                display_alert(msg_title: "Error", msg_desc: "Audio file is missing.", action_title: "OK")
+            }
+        }
+    }
+    
+    
+    
+    
+    func prepare_play()
+    {
+        do
+        {
+            audioPlayer = try AVAudioPlayer(contentsOf: getFileUrl())
+            
+            audioPlayer.delegate = self
+            audioPlayer.prepareToPlay()
+            
+        }
+        catch{
+            print("Error")
+        }
+    }
+    
+    
+    
+    @IBAction func scrubAudio(_ sender: Any)
+    {
+        seeker.maximumValue = Float(audioPlayer.duration)
+        audioPlayer.stop()
+        audioPlayer.currentTime = TimeInterval(seeker.value)
+        audioPlayer.prepareToPlay()
+        audioPlayer.play()
+    }
+    
+    @objc func updateSlider() {
+        seeker.value = Float(audioPlayer.currentTime)
+    }
+    
+    @objc func updateTime() {
+        let currentTime = Int(audioPlayer.currentTime)
+        let duration = Int(audioPlayer.duration)
+        let total = currentTime - duration
+        _ = String(total)
+        
+        let minutes = currentTime/60
+        var seconds = currentTime - minutes / 60
+        if minutes > 0 {
+            seconds = seconds - 60 * minutes
+            
+        }
+        
+        time.text = NSString(format: "%02d:%02d", minutes,seconds) as String
+    }
+    func setDuration()
+    {
+        let duration = Int(audioPlayer.duration)
+        let minutes = duration/60
+        var seconds = duration - minutes / 60
+        if minutes > 0 {
+            seconds = seconds - 60 * minutes
+        }
+        durationLabel.text = NSString(format: "%02d:%02d", minutes,seconds) as String
+        
+    }
+    
+    
+    
+    
+    //file manager to get and set file path
+    func getDocumentsDirectory() -> URL
+    {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+    
+    func getFileUrl() -> URL
+    {
+        let name = titleText.text + descText.text
+        let filename = name
+        let filePath = getDocumentsDirectory().appendingPathComponent(filename)
+        print(filePath)
+        return filePath
+    }
+    
+    
     
     
     
@@ -513,5 +521,18 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         })
         present(ac, animated: true)
     }
+    
+    //custom textview
+       func textViewDidBeginEditing(_ textView: UITextView) {
+           
+           if descText.textColor == UIColor.lightGray {
+               descText.text = ""
+               descText.textColor = UIColor.black
+           }
+           if titleText.textColor == UIColor.lightGray {
+               titleText.text = ""
+               titleText.textColor = UIColor.black
+           }
+       }
     
 }

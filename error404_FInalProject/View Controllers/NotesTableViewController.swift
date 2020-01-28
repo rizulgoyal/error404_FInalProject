@@ -204,15 +204,10 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
                 self.navigationController?.pushViewController(newVC, animated: true)
             
         })
-        
-        
         action.backgroundColor = .lightGray
         action.image = UIImage(systemName: "folder")
         
-        
-        
         // second action for delete
-        
         let action1 = UIContextualAction(
             style: .normal,
             title: "Delete Note",
@@ -258,8 +253,6 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
                 
                 completion(true)
         })
-        
-        
         action1.backgroundColor = .red
         action1.image = UIImage(systemName: "trash")
         

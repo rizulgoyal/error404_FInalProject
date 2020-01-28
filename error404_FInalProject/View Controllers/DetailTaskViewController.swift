@@ -676,7 +676,7 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
         
     }
     
-    
+    //custom display alerts
     func display_alert(msg_title : String , msg_desc : String ,action_title : String)
     {
         let ac = UIAlertController(title: msg_title, message: msg_desc, preferredStyle: .alert)
