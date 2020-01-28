@@ -32,6 +32,8 @@ class mapLocationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
+        
+        navigationController?.navigationItem.largeTitleDisplayMode = .never
         let coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
              let annotation = MKPointAnnotation()
              annotation.coordinate = coordinate

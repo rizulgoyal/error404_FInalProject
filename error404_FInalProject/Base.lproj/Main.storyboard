@@ -341,8 +341,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wBE-Gl-dzb">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wBE-Gl-dzb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wib-5A-Cdk">
                                 <rect key="frame" x="293" y="779" width="101" height="45"/>
@@ -357,12 +358,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="wBE-Gl-dzb" firstAttribute="leading" secondItem="WrH-55-qGI" secondAttribute="leading" id="K0J-me-7Hq"/>
-                            <constraint firstItem="WrH-55-qGI" firstAttribute="trailing" secondItem="wBE-Gl-dzb" secondAttribute="trailing" id="QPC-cO-bvR"/>
-                            <constraint firstItem="WrH-55-qGI" firstAttribute="bottom" secondItem="wBE-Gl-dzb" secondAttribute="bottom" id="tva-81-rdw"/>
-                            <constraint firstItem="wBE-Gl-dzb" firstAttribute="top" secondItem="WrH-55-qGI" secondAttribute="top" id="u3m-4o-RL7"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="WrH-55-qGI"/>
                     </view>
                     <navigationItem key="navigationItem" id="LXe-Ao-njz"/>
