@@ -261,7 +261,7 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
     
     func openDialog(){
         
-        let alert = UIAlertController(title: "Select Image", message: "Pick image from", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Select Image", message: "Pick image from", preferredStyle: .actionSheet)
         
         
         

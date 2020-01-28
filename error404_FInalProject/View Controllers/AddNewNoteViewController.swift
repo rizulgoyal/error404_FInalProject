@@ -175,11 +175,26 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
 
     @IBAction func cameraBtn(_ sender: Any)
     {
+        if selectedImage.isHidden
+        {
         openDialog()
+        }
+        else
+        {
+            let alert = UIAlertController(title: "Replace Image", message: "are you sure you want to replace the image", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                
+                self.openDialog()
+            }))
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
+            
+        }
     }
     
     func openDialog(){
-        let alert = UIAlertController(title: "Select an image!", message: "Pick image from", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Select an image!", message: "Pick image from", preferredStyle: .actionSheet)
         
         
         
