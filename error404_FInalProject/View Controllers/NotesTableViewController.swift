@@ -27,7 +27,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorStyle = .none
-        searchNote.delegate = self
+        //searchNote.delegate = self
 //        clearCoreData()
 //        notesArray.removeAll()
         loadFromCoreData()
@@ -329,7 +329,25 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
     var isSearchBarEmpty: Bool {
       return searchController.searchBar.text?.isEmpty ?? true
     }
-
+    
+    func searchResult(searchText : String)
+    {
+        let filtered = notesArray.filter { $0.title.lowercased().contains(searchText.lowercased()) || $0.desc.lowercased().contains(searchText.lowercased())}
+                
+        if filtered.count>0
+        {
+         //tasks = []
+            searchArray = filtered;
+            isSearch = true;
+        }
+        else
+        {
+         searchArray = self.notesArray
+            isSearch = false;
+        }
+        self.tableView.reloadData();
+    }
+      
      
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
          {
@@ -456,6 +474,7 @@ extension UIView {
 }
 extension NotesTableViewController: UISearchResultsUpdating {
   func updateSearchResults(for searchController: UISearchController) {
-    // TODO
+    let searchBar = searchController.searchBar
+    searchResult(searchText: searchBar.text!)
   }
 }
