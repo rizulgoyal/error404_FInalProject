@@ -15,15 +15,15 @@ import MediaPlayer
 
 
 class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UITextViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UNUserNotificationCenterDelegate,AVAudioRecorderDelegate, AVAudioPlayerDelegate {
-
-
-   //audio fucntionality
-   var audioRecorder: AVAudioRecorder!
-   var audioPlayer : AVAudioPlayer!
-   var meterTimer:Timer!
-   var isAudioRecordingGranted: Bool!
-   var isRecording = false
-   var isPlaying = false
+    
+    
+    //audio fucntionality
+    var audioRecorder: AVAudioRecorder!
+    var audioPlayer : AVAudioPlayer!
+    var meterTimer:Timer!
+    var isAudioRecordingGranted: Bool!
+    var isRecording = false
+    var isPlaying = false
     @IBOutlet var durationLabel: UILabel!
     
     var timer: Timer?
@@ -60,9 +60,9 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         descText.textColor = UIColor.lightGray
         
         locationManager.delegate = self
-         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
-         
+        
         locationManager.startUpdatingLocation()
         
         //audioplayer
@@ -82,7 +82,7 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
     }
     
     @objc func updateSlider() {
-    seeker.value = Float(audioPlayer.currentTime)
+        seeker.value = Float(audioPlayer.currentTime)
     }
     
     @objc func updateTime() {
@@ -90,11 +90,11 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         let duration = Int(audioPlayer.duration)
         let total = currentTime - duration
         _ = String(total)
-
+        
         let minutes = currentTime/60
         var seconds = currentTime - minutes / 60
         if minutes > 0 {
-           seconds = seconds - 60 * minutes
+            seconds = seconds - 60 * minutes
             
         }
         
@@ -106,28 +106,28 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         let minutes = duration/60
         var seconds = duration - minutes / 60
         if minutes > 0 {
-           seconds = seconds - 60 * minutes
+            seconds = seconds - 60 * minutes
         }
         durationLabel.text = NSString(format: "%02d:%02d", minutes,seconds) as String
         
     }
-
+    
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-              //grab user location
-             
-              
-              let userLocation : CLLocation = locations[0]
-              let lat = userLocation.coordinate.latitude
-             let long = userLocation.coordinate.longitude
-             
-              let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
-     
-           destination2d = location
-              
-
-          }
-      
+        //grab user location
+        
+        
+        let userLocation : CLLocation = locations[0]
+        let lat = userLocation.coordinate.latitude
+        let long = userLocation.coordinate.longitude
+        
+        let location = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        
+        destination2d = location
+        
+        
+    }
+    
     
     
     
@@ -145,11 +145,11 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         note.category = self.category
         if !(imageData.isEmpty)
         {
-        note.imageData = self.imageData
+            note.imageData = self.imageData
         }
         if audioPlayerView.isHidden == false
         {
-        note.audiopath = audioPath
+            note.audiopath = audioPath
         }
         print(imageData)
         noteArray.append(note)
@@ -181,23 +181,23 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
             newTask.setValue(i.long, forKey: "longitude")
             newTask.setValue(i.imageData, forKey: "image")
             newTask.setValue(i.audiopath, forKey: "audiopath")
-
-        
-        
-        do
-                   {
-                        try context.save()
-                       print(newTask, "is saved")
-                   }catch
-                   {
-                       print(error)
-                   }
+            
+            
+            
+            do
+            {
+                try context.save()
+                print(newTask, "is saved")
+            }catch
+            {
+                print(error)
+            }
         }
         
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-
+        
         if descText.textColor == UIColor.lightGray {
             descText.text = ""
             descText.textColor = UIColor.black
@@ -208,7 +208,7 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         }
     }
     
-   
+    
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.selectedImage.isHidden =  false
@@ -219,109 +219,74 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         }
         self.dismiss(animated: true, completion: nil)
     }
-
-   
-
+    
+    
+    
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     @IBAction func removeImageBtn(_ sender: Any)
     {
         
         let alert = UIAlertController(title: "Delete Image", message: "Are You Sure You Want to Delete the Image form the Note?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Delete", style: .destructive){
             UIAlertAction in
-           self.selectedImage.isHidden = true
+            self.selectedImage.isHidden = true
             self.removeImageBtn.isHidden = true
             self.imageData = Data()
         }
         alert.addAction(okAction)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-               alert.addAction(cancelAction)
-               
-               self.present(alert, animated: true, completion: nil)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
-
+    
     @IBAction func cameraBtn(_ sender: Any)
     {
         openDialog()
     }
     
-    
-    
-    
-    /*
-    // MARK: - Navigation
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     func openDialog(){
-               let alert = UIAlertController(title: "NoteIt!", message: "Pick image from", preferredStyle: .alert)
-
-               
-
-               alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { action in
-
-                     if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                               var imagePicker = UIImagePickerController()
-                               imagePicker.delegate = self
-                               imagePicker.sourceType = .camera;
-                               imagePicker.allowsEditing = false
-                            self.present(imagePicker, animated: true, completion: nil)
-                           }
-               }))
-               alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { action in
-                
-                  
-                         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                             var imagePicker = UIImagePickerController()
-                             imagePicker.delegate = self
-                             imagePicker.sourceType = .photoLibrary;
-                             imagePicker.allowsEditing = true
-                             self.present(imagePicker, animated: true, completion: nil)
-                         }
-                     
-               }))
-               alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-               self.present(alert, animated: true)
-           }
+        let alert = UIAlertController(title: "Select an image!", message: "Pick image from", preferredStyle: .alert)
+        
+        
+        
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { action in
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                var imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = .camera;
+                imagePicker.allowsEditing = false
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { action in
+            
+            
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                var imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = .photoLibrary;
+                imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
     
     
     @IBAction func recordBtn(_ sender: Any)
     {
         if(isRecording == false)
         {
-//            finishAudioRecording(success: true)
-//        //record_btn_ref.setTitle("Record", for: .normal)
-//            //play_btn_ref.isEnabled = true
-//            isRecording = false
-//
-//            do{
-//
-//                       audioPlayer = try AVAudioPlayer(contentsOf: getFileUrl())
-//                       var updateTimer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
-//                       timer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateSlider), userInfo: nil, repeats: true)
-//                       seeker.maximumValue = Float(audioPlayer.duration)
-//                       setDuration()
-//                       updateTime()
-//                   }
-//                   catch{
-//                           print(error)
-//                   }
-//            audioPlayerView.isHidden = false
-//            //print(note.audiopath)
-//
-//        }
-//        else
-//        {
             let recordingSession = AVAudioSession.sharedInstance()
-
+            
             do {
                 try recordingSession.setCategory(.playAndRecord, mode: .default)
                 try recordingSession.setActive(true)
@@ -338,17 +303,17 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
                 // failed to record!
             }
             
-    
+            
         }
     }
     
     private func performRecord() {
-
+        
         check_record_permission()
         setup_recorder()
         if isAudioRecordingGranted
         {
-        audioRecorder.record()
+            audioRecorder.record()
         }
         
         //meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
@@ -395,9 +360,9 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
         }
         alert.addAction(okAction)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-               alert.addAction(cancelAction)
-               
-               self.present(alert, animated: true, completion: nil)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
         
     }
     
@@ -418,101 +383,101 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
     }
     
     func finishAudioRecording(success: Bool)
-       {
-           if success
-           {
-               audioRecorder.stop()
-               audioRecorder = nil
-               //meterTimer.invalidate()
-               print("recorded successfully.")
+    {
+        if success
+        {
+            audioRecorder.stop()
+            audioRecorder = nil
+            //meterTimer.invalidate()
+            print("recorded successfully.")
             audioPath = getFileUrl().path
-               
-           }
-           else
-           {
-               display_alert(msg_title: "Error", msg_desc: "Recording failed.", action_title: "OK")
-           }
-       }
-       
-       func check_record_permission()
-       {
-           switch AVAudioSession.sharedInstance().recordPermission {
-           case AVAudioSessionRecordPermission.granted:
-               isAudioRecordingGranted = true
-               break
-           case AVAudioSessionRecordPermission.denied:
-               isAudioRecordingGranted = false
-               break
-           case AVAudioSessionRecordPermission.undetermined:
-               AVAudioSession.sharedInstance().requestRecordPermission({ (allowed) in
-                       if allowed {
-                           self.isAudioRecordingGranted = true
-                       } else {
-                           self.isAudioRecordingGranted = false
-                       }
-               })
-               break
-           default:
-               break
-           }
-       }
-       
-       func getDocumentsDirectory() -> URL
-       {
-           let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-           let documentsDirectory = paths[0]
-           return documentsDirectory
-       }
-
-       func getFileUrl() -> URL
-       {
-           let name = titleText.text + descText.text
-           let filename = name
-           let filePath = getDocumentsDirectory().appendingPathComponent(filename)
-           print(filePath)
-       return filePath
-       }
-       
-       func setup_recorder()
-       {
-           if isAudioRecordingGranted
-           {
-               let session = AVAudioSession.sharedInstance()
-               do
-               {
-                   try session.setCategory(AVAudioSession.Category.playAndRecord)
-                   try session.setActive(true)
-                   let settings = [
-                       AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-                       AVSampleRateKey: 44100,
-                       AVNumberOfChannelsKey: 2,
-                       AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue
-                   ]
-                   audioRecorder = try AVAudioRecorder(url: getFileUrl(), settings: settings)
-                   audioRecorder.delegate = self
-                   audioRecorder.isMeteringEnabled = true
-                   audioRecorder.prepareToRecord()
-               }
-               catch let error {
-                   display_alert(msg_title: "Error", msg_desc: error.localizedDescription, action_title: "OK")
-                   
-               }
-           }
-           else
-           {
-               display_alert(msg_title: "Error", msg_desc: "Don't have access to use your microphone.", action_title: "OK")
-           }
-       }
+            
+        }
+        else
+        {
+            display_alert(msg_title: "Error", msg_desc: "Recording failed.", action_title: "OK")
+        }
+    }
+    
+    func check_record_permission()
+    {
+        switch AVAudioSession.sharedInstance().recordPermission {
+        case AVAudioSessionRecordPermission.granted:
+            isAudioRecordingGranted = true
+            break
+        case AVAudioSessionRecordPermission.denied:
+            isAudioRecordingGranted = false
+            break
+        case AVAudioSessionRecordPermission.undetermined:
+            AVAudioSession.sharedInstance().requestRecordPermission({ (allowed) in
+                if allowed {
+                    self.isAudioRecordingGranted = true
+                } else {
+                    self.isAudioRecordingGranted = false
+                }
+            })
+            break
+        default:
+            break
+        }
+    }
+    
+    func getDocumentsDirectory() -> URL
+    {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+    
+    func getFileUrl() -> URL
+    {
+        let name = titleText.text + descText.text
+        let filename = name
+        let filePath = getDocumentsDirectory().appendingPathComponent(filename)
+        print(filePath)
+        return filePath
+    }
+    
+    func setup_recorder()
+    {
+        if isAudioRecordingGranted
+        {
+            let session = AVAudioSession.sharedInstance()
+            do
+            {
+                try session.setCategory(AVAudioSession.Category.playAndRecord)
+                try session.setActive(true)
+                let settings = [
+                    AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                    AVSampleRateKey: 44100,
+                    AVNumberOfChannelsKey: 2,
+                    AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue
+                ]
+                audioRecorder = try AVAudioRecorder(url: getFileUrl(), settings: settings)
+                audioRecorder.delegate = self
+                audioRecorder.isMeteringEnabled = true
+                audioRecorder.prepareToRecord()
+            }
+            catch let error {
+                display_alert(msg_title: "Error", msg_desc: error.localizedDescription, action_title: "OK")
+                
+            }
+        }
+        else
+        {
+            display_alert(msg_title: "Error", msg_desc: "Don't have access to use your microphone.", action_title: "OK")
+        }
+    }
     
     
-        
+    
     func display_alert(msg_title : String , msg_desc : String ,action_title : String)
     {
         let ac = UIAlertController(title: msg_title, message: msg_desc, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: action_title, style: .default)
         {
             (result : UIAlertAction) -> Void in
-        //_ = self.navigationController?.popViewController(animated: true)
+            //_ = self.navigationController?.popViewController(animated: true)
         })
         present(ac, animated: true)
     }
@@ -525,29 +490,28 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
             if(self.isRecording)
             {
                 self.finishAudioRecording(success: true)
-            //record_btn_ref.setTitle("Record", for: .normal)
+                //record_btn_ref.setTitle("Record", for: .normal)
                 //play_btn_ref.isEnabled = true
                 self.isRecording = false
-               do{
-                                 
-                self.audioPlayer = try AVAudioPlayer(contentsOf: self.getFileUrl())
-                                     var updateTimer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
-                self.timer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateSlider), userInfo: nil, repeats: true)
-                self.seeker.maximumValue = Float(self.audioPlayer.duration)
-                self.setDuration()
-                self.updateTime()
-                                 }
-                                 catch{
-                                         print(error)
-                                 }
+                do{
+                    
+                    self.audioPlayer = try AVAudioPlayer(contentsOf: self.getFileUrl())
+                    var updateTimer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateTime), userInfo: nil, repeats: true)
+                    self.timer = Timer.scheduledTimer(timeInterval: 0.0001, target: self, selector: #selector(self.updateSlider), userInfo: nil, repeats: true)
+                    self.seeker.maximumValue = Float(self.audioPlayer.duration)
+                    self.setDuration()
+                    self.updateTime()
+                }
+                catch{
+                    print(error)
+                }
                 self.audioPlayerView.isHidden = false
                 self.audioPath = "\(self.getFileUrl())"
                 //print(note.audiopath)
                 
             }
-        //_ = self.navigationController?.popViewController(animated: true)
         })
         present(ac, animated: true)
     }
-
+    
 }
