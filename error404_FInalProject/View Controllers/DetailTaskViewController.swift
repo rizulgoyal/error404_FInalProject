@@ -14,7 +14,7 @@ import Photos
 
 class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
-    
+    //pre required data from notesTableviewCOntroller
     var note = Note()
     var notesArray : [Note] = []
     var categoryPassed = ""
@@ -38,34 +38,25 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
     @IBOutlet var durationLabel: UILabel!
     var timer : Timer?
     
-    
+    //outlets
     @IBOutlet var removeImgBtn: UIButton!
-    
     @IBOutlet var recordBtn: UIButton!
     @IBOutlet var textTitle: UITextView!
-    
     @IBOutlet var cameraBtn: UIButton!
     @IBOutlet var imageTask: UIImageView!
     @IBOutlet var labelDesc: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //back functionality
         count = 0
         
-        
+        //textView Customization
         textTitle.delegate = self
         textTitle.textContainer.maximumNumberOfLines = 1
         
         
-        //code after adding audio
-        if note.audiopath.elementsEqual("")
-        {
-            audioPlayerView.isHidden = true
-        }
-        else
-        {
-            audioPlayerView.isHidden = false
-        }
+        
         
         
         //displaying data
@@ -101,67 +92,22 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
         }
         audioPlayerView.addShadow1()
         
+        //code after adding audio
+        if note.audiopath.elementsEqual("")
+        {
+            audioPlayerView.isHidden = true
+        }
+        else
+        {
+            audioPlayerView.isHidden = false
+        }
+        
+        
+        //setting large titles
         navigationController?.navigationItem.largeTitleDisplayMode = .never
-        
-        let tapGestureReconizer = UITapGestureRecognizer(target: self, action: #selector(tap))
-        tapGestureReconizer.numberOfTouchesRequired = 1
-        view.addGestureRecognizer(tapGestureReconizer)
-        // Do any additional setup after loading the view.
+       
         
     }
-    @objc func tap(sender: UITapGestureRecognizer) {
-        view.endEditing(true)
-        print("tapped")
-        // or use
-        //        self.descText.resignFirstResponder()
-        //     // or use
-        //        (view.super() as AnyObject).endEditing(true)
-        //     // or use
-        
-    }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let newVC = segue.destination as? mapLocationViewController{
-            newVC.lat = note.lat
-            newVC.long = note.long
-        }
-    }
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let existingLines = textView.text.components(separatedBy: CharacterSet.newlines)
-        let newLines = text.components(separatedBy: CharacterSet.newlines)
-        let linesAfterChange = existingLines.count + newLines.count - 1
-        //self.resignFirstResponder()//        labelDesc.becomeFirstResponder()
-        
-        return linesAfterChange == textView.textContainer.maximumNumberOfLines
-        
-        
-    }
-    
-    @IBAction func saveBtn(_ sender: Any)
-    {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    
-    @IBAction func deleteBtn(_ sender: Any)
-    {
-        let alert = UIAlertController(title: "Delete Note", message: "Are You Sure You Want to Delete the Note?", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Delete", style: .destructive){
-            UIAlertAction in
-            self.deleteData()
-            self.count = 1
-            self.navigationController?.popViewController(animated: true)
-        }
-        alert.addAction(okAction)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
-        
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    
-    
     
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -222,9 +168,58 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
             saveToCoreData()
         }
         
+    }
+    
+    
+    //segue task
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let newVC = segue.destination as? mapLocationViewController{
+            newVC.lat = note.lat
+            newVC.long = note.long
+        }
+    }
+    
+    //textView Customization
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let existingLines = textView.text.components(separatedBy: CharacterSet.newlines)
+        let newLines = text.components(separatedBy: CharacterSet.newlines)
+        let linesAfterChange = existingLines.count + newLines.count - 1
+        //self.resignFirstResponder()//        labelDesc.becomeFirstResponder()
+        
+        return linesAfterChange == textView.textContainer.maximumNumberOfLines
         
         
     }
+    
+    //save btn fucntionality
+    @IBAction func saveBtn(_ sender: Any)
+    {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
+    //delete note btn
+    @IBAction func deleteBtn(_ sender: Any)
+    {
+        let alert = UIAlertController(title: "Delete Note", message: "Are You Sure You Want to Delete the Note?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Delete", style: .destructive){
+            UIAlertAction in
+            self.deleteData()
+            self.count = 1
+            self.navigationController?.popViewController(animated: true)
+        }
+        alert.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    
+    
+    
+
     
     //image part
     
@@ -254,6 +249,7 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
     }
     
     func openDialog(){
+        
         let alert = UIAlertController(title: "Select Image", message: "Pick image from", preferredStyle: .alert)
         
         
@@ -261,7 +257,7 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { action in
             
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                var imagePicker = UIImagePickerController()
+                let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = .camera;
                 imagePicker.allowsEditing = false
@@ -272,7 +268,7 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
             
             
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                var imagePicker = UIImagePickerController()
+                let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.sourceType = .photoLibrary;
                 imagePicker.allowsEditing = true

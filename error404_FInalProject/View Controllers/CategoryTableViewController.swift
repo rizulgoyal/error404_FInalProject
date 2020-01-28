@@ -127,6 +127,15 @@ class CategoryTableViewController: UITableViewController {
             UIAlertAction in
             let newcategory = alert.textFields![0].text
             self.categoryArray.append(newcategory!)
+            
+            if self.categoryArray.contains(newcategory!)
+            {
+                let alert = UIAlertController(title: "Cannot Add ", message: "Folder already exists.", preferredStyle: .alert)
+                alert.addAction(UIKit.UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                //alert.addAction(cancelAction)
+                self.present(alert, animated: true, completion: nil)
+                
+            }else{
             let userDefaults = UserDefaults.standard
             
             userDefaults.removeObject(forKey: "category")
@@ -134,6 +143,7 @@ class CategoryTableViewController: UITableViewController {
             self.categoryArray.removeAll()
             self.categoryArray = userDefaults.array(forKey: "category") as! [String]
             self.tableView.reloadData()
+            }
             
         }
         alert.addAction(okAction)

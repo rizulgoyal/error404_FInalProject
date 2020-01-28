@@ -148,6 +148,8 @@ class ChooseCategoryTableViewController: UITableViewController {
         
     }
     
+    
+    //function to clkear all the data from coredata
     func clearCoreData ()
     {
         
@@ -171,6 +173,10 @@ class ChooseCategoryTableViewController: UITableViewController {
         }
         
     }
+    
+    
+    
+    //function to load data
     func loadFromCoreData()
     {
         
@@ -224,6 +230,8 @@ class ChooseCategoryTableViewController: UITableViewController {
         }
         
     }
+    
+    //function to delete the selected notes
     func deleteData()
     {
         

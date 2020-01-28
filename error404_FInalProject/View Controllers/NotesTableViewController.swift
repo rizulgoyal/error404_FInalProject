@@ -189,7 +189,7 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
     }
     
     
-    
+    //swipe actions
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         // first action for adding day
@@ -269,9 +269,12 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
         return configuration
     }
     
-    var isSearchBarEmpty: Bool {
-        return searchController.searchBar.text?.isEmpty ?? true
-    }
+    
+    
+    
+    
+    
+    //sort Functionality
     @IBAction func sortBy(_ sender: Any)
     {
         let alert = UIAlertController(title: "Sort Table", message: "Please Select one option", preferredStyle: .alert)
@@ -298,6 +301,22 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
         self.present(alert, animated: true)
     }
     
+    
+    
+    
+   
+    //search functionality
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool
+    {
+        return true;
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let newVC = segue.destination as? AddNewNoteViewController
+        {
+            newVC.category = self.category
+        }
+    }
     func searchResult(searchText : String)
     {
         let filtered = notesArray.filter { $0.title.lowercased().contains(searchText.lowercased()) || $0.desc.lowercased().contains(searchText.lowercased())}
@@ -315,39 +334,14 @@ class NotesTableViewController: UITableViewController, UISearchBarDelegate, CLLo
         }
         self.tableView.reloadData();
     }
-    
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
-    {
-        let filtered = notesArray.filter { $0.title.lowercased().contains(searchText.lowercased()) || $0.desc.lowercased().contains(searchText.lowercased())}
-        
-        if filtered.count>0
-        {
-            //tasks = []
-            searchArray = filtered;
-            isSearch = true;
-        }
-        else
-        {
-            searchArray = self.notesArray
-            isSearch = false;
-        }
-        self.tableView.reloadData();
-    }
-    
-    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool
-    {
-        return true;
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let newVC = segue.destination as? AddNewNoteViewController
-        {
-            newVC.category = self.category
-        }
+    var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
     }
     
     
+    
+    
+    //coredata functions
     func clearCoreData ()
     {
         
