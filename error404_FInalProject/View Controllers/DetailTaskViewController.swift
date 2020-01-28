@@ -98,7 +98,21 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
             }
 
         navigationController?.navigationItem.largeTitleDisplayMode = .never
+        
+        let tapGestureReconizer = UITapGestureRecognizer(target: self, action: #selector(tap))
+        tapGestureReconizer.numberOfTouchesRequired = 1
+        view.addGestureRecognizer(tapGestureReconizer)
         // Do any additional setup after loading the view.
+    }
+    @objc func tap(sender: UITapGestureRecognizer) {
+     view.endEditing(true)
+        print("tapped")
+     // or use
+//        self.descText.resignFirstResponder()
+//     // or use
+//        (view.super() as AnyObject).endEditing(true)
+//     // or use
+       
     }
     
    
@@ -287,22 +301,42 @@ class DetailTaskViewController: UIViewController, UITextViewDelegate, AVAudioRec
     
     @IBAction func startRecording(_ sender: Any)
     {
+        let recordingSession = AVAudioSession.sharedInstance()
 
-        if(isRecording == false)
-        {
-            check_record_permission()
-            setup_recorder()
-
-            audioRecorder.record()
-            
-            
-            //meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
-            //record_btn_ref.setTitle("Stop", for: .normal)
-            //play_btn_ref.isEnabled = false
-            isRecording = true
-        display_alert1(msg_title: "Recording Audio Note", msg_desc: "app is now recording audio", action_title: "stop")
+        do {
+            try recordingSession.setCategory(.playAndRecord, mode: .default)
+            try recordingSession.setActive(true)
+            recordingSession.requestRecordPermission() { [unowned self] allowed in
+                DispatchQueue.main.async {
+                    if allowed {
+                        self.performRecord()
+                    } else {
+                        // failed to record!
+                    }
+                }
+            }
+        } catch {
+            // failed to record!
         }
-        
+    }
+    
+    func performRecord()
+    {
+    if(isRecording == false)
+           {
+               check_record_permission()
+               setup_recorder()
+
+               audioRecorder.record()
+               
+               
+               //meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
+               //record_btn_ref.setTitle("Stop", for: .normal)
+               //play_btn_ref.isEnabled = false
+               isRecording = true
+           display_alert1(msg_title: "Recording Audio Note", msg_desc: "app is now recording audio", action_title: "stop")
+               
+           }
     }
     func finishAudioRecording(success: Bool)
     {

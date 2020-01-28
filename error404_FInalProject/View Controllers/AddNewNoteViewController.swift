@@ -320,18 +320,42 @@ class AddNewNoteViewController: UIViewController, CLLocationManagerDelegate, UIT
 //        }
 //        else
 //        {
-            check_record_permission()
-            setup_recorder()
+            let recordingSession = AVAudioSession.sharedInstance()
 
-            audioRecorder.record()
+            do {
+                try recordingSession.setCategory(.playAndRecord, mode: .default)
+                try recordingSession.setActive(true)
+                recordingSession.requestRecordPermission() { [unowned self] allowed in
+                    DispatchQueue.main.async {
+                        if allowed {
+                            self.performRecord()
+                        } else {
+                            // failed to record!
+                        }
+                    }
+                }
+            } catch {
+                // failed to record!
+            }
             
-            
-            //meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
-            //record_btn_ref.setTitle("Stop", for: .normal)
-            //play_btn_ref.isEnabled = false
-            isRecording = true
-            display_alert1(msg_title: "recording", msg_desc: "app is now recording audio", action_title: "Stop")
+    
         }
+    }
+    
+    private func performRecord() {
+
+        check_record_permission()
+        setup_recorder()
+        if isAudioRecordingGranted
+        {
+        audioRecorder.record()
+        }
+        
+        //meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
+        //record_btn_ref.setTitle("Stop", for: .normal)
+        //play_btn_ref.isEnabled = false
+        isRecording = true
+        display_alert1(msg_title: "recording", msg_desc: "app is now recording audio", action_title: "Stop")
     }
     
     @IBAction func playBtn(_ sender: Any)

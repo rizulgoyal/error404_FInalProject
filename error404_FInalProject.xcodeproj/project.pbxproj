@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF09FEEC530D99B02EF6616A /* Pods_error404_FInalProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86F29828577CE1393706AFA8 /* Pods_error404_FInalProject.framework */; };
 		E08F3C5E23D9411C00069ED2 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C5D23D9411C00069ED2 /* CategoryTableViewCell.swift */; };
 		E08F3C6023D9486900069ED2 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C5F23D9486900069ED2 /* NotesTableViewController.swift */; };
 		E08F3C6423D9592700069ED2 /* NotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08F3C6323D9592700069ED2 /* NotesTableViewCell.swift */; };
@@ -27,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8138A75EE4702A5577035BD3 /* Pods-error404_FInalProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-error404_FInalProject.release.xcconfig"; path = "Target Support Files/Pods-error404_FInalProject/Pods-error404_FInalProject.release.xcconfig"; sourceTree = "<group>"; };
+		86F29828577CE1393706AFA8 /* Pods_error404_FInalProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_error404_FInalProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E08F3C5D23D9411C00069ED2 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		E08F3C5F23D9486900069ED2 /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
 		E08F3C6323D9592700069ED2 /* NotesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewCell.swift; sourceTree = "<group>"; };
@@ -46,6 +49,7 @@
 		E0F21CCC23D9314A00489FC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E0F21CD223D931A100489FC2 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 		E0F21CD723D93A0400489FC2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		F774B8C7A5D507A3BC5F5E7B /* Pods-error404_FInalProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-error404_FInalProject.debug.xcconfig"; path = "Target Support Files/Pods-error404_FInalProject/Pods-error404_FInalProject.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,12 +57,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF09FEEC530D99B02EF6616A /* Pods_error404_FInalProject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3593A7C4D5C41E735E92F5E9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F774B8C7A5D507A3BC5F5E7B /* Pods-error404_FInalProject.debug.xcconfig */,
+				8138A75EE4702A5577035BD3 /* Pods-error404_FInalProject.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C3DDB7FF8162ABC215607605 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				86F29828577CE1393706AFA8 /* Pods_error404_FInalProject.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E08F3C5C23D940F900069ED2 /* Custom Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +97,8 @@
 			children = (
 				E0F21CBA23D9314900489FC2 /* error404_FInalProject */,
 				E0F21CB923D9314900489FC2 /* Products */,
+				3593A7C4D5C41E735E92F5E9 /* Pods */,
+				C3DDB7FF8162ABC215607605 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,9 +156,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E0F21CCF23D9314A00489FC2 /* Build configuration list for PBXNativeTarget "error404_FInalProject" */;
 			buildPhases = (
+				0029E9ED0E6BF9B47F7F06F4 /* [CP] Check Pods Manifest.lock */,
 				E0F21CB423D9314900489FC2 /* Sources */,
 				E0F21CB523D9314900489FC2 /* Frameworks */,
 				E0F21CB623D9314900489FC2 /* Resources */,
+				AA446ACE3AA141DFFC707BF4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -189,6 +216,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0029E9ED0E6BF9B47F7F06F4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-error404_FInalProject-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AA446ACE3AA141DFFC707BF4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-error404_FInalProject/Pods-error404_FInalProject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-error404_FInalProject/Pods-error404_FInalProject-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-error404_FInalProject/Pods-error404_FInalProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E0F21CB423D9314900489FC2 /* Sources */ = {
@@ -350,6 +419,7 @@
 		};
 		E0F21CD023D9314A00489FC2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F774B8C7A5D507A3BC5F5E7B /* Pods-error404_FInalProject.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -368,6 +438,7 @@
 		};
 		E0F21CD123D9314A00489FC2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8138A75EE4702A5577035BD3 /* Pods-error404_FInalProject.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

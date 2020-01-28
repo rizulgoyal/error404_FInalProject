@@ -30,8 +30,8 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "textView(_:shouldChangeTextIn:replacementText:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
             landmarkName = "viewWillDisappear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "598"
-            endingLineNumber = "598"
+            startingLineNumber = "612"
+            endingLineNumber = "612"
             landmarkName = "loadFromCoreData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,8 +94,8 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "599"
-            endingLineNumber = "599"
+            startingLineNumber = "613"
+            endingLineNumber = "613"
             landmarkName = "loadFromCoreData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,8 +110,8 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "viewWillDisappear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
             landmarkName = "viewWillDisappear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,10 +142,10 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "358"
-            endingLineNumber = "358"
-            landmarkName = "getFileUrl()"
-            landmarkType = "7">
+            startingLineNumber = "372"
+            endingLineNumber = "372"
+            landmarkName = "DetailTaskViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -158,8 +158,10 @@
             filePath = "error404_FInalProject/View Controllers/AddNewNoteViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "530"
-            endingLineNumber = "530">
+            startingLineNumber = "531"
+            endingLineNumber = "531"
+            landmarkName = "display_alert1(msg_title:msg_desc:action_title:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -172,8 +174,8 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "DetailTaskViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -188,8 +190,8 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "639"
-            endingLineNumber = "639"
+            startingLineNumber = "653"
+            endingLineNumber = "653"
             landmarkName = "deleteData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -204,9 +206,9 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "610"
-            endingLineNumber = "610"
-            landmarkName = "deleteData()"
+            startingLineNumber = "624"
+            endingLineNumber = "624"
+            landmarkName = "loadFromCoreData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -220,8 +222,8 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "DetailTaskViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -236,9 +238,9 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "611"
-            endingLineNumber = "611"
-            landmarkName = "deleteData()"
+            startingLineNumber = "625"
+            endingLineNumber = "625"
+            landmarkName = "loadFromCoreData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -252,9 +254,9 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "612"
-            endingLineNumber = "612"
-            landmarkName = "deleteData()"
+            startingLineNumber = "626"
+            endingLineNumber = "626"
+            landmarkName = "loadFromCoreData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -268,9 +270,9 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "613"
-            endingLineNumber = "613"
-            landmarkName = "deleteData()"
+            startingLineNumber = "627"
+            endingLineNumber = "627"
+            landmarkName = "loadFromCoreData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -284,9 +286,9 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "614"
-            endingLineNumber = "614"
-            landmarkName = "deleteData()"
+            startingLineNumber = "628"
+            endingLineNumber = "628"
+            landmarkName = "loadFromCoreData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -300,9 +302,25 @@
             filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "615"
-            endingLineNumber = "615"
-            landmarkName = "deleteData()"
+            startingLineNumber = "629"
+            endingLineNumber = "629"
+            landmarkName = "loadFromCoreData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9E13FDB8-A2A9-4413-9E73-5E60BD9BFF8A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "error404_FInalProject/View Controllers/DetailTaskViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "tap(sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
